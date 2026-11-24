@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="hust-fx.js"></script>
+<title>Hüst Tênis - Se Joga no Estilo</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"></noscript>
+<link rel="icon" href="HUst%20Logo.jpg" type="image/jpeg">
+
+<style>
+/* ESTILOS PADRONIZADOS PARA OS DOIS BANNERS (EXATAMENTE A MESMA PROPORÇÃO 2046x764) */
+.banner-com-texto {
+    position: relative;
+    width: calc(100% - 32px);
+    max-width: 1200px;
+    margin: 30px auto;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 51, 51, 0.25);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 51, 51, 0.05);
+    aspect-ratio: 2046 / 764;
+    display: flex;
+    align-items: center;
+    background: #0d0d0f;
+}
+
+/* Imagem de fundo preenchendo o espaço exato no desktop */
+.banner-com-texto img.banner-fundo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 1;
+}
+
+/* Camada de opacidade (overlay) para assegurar o contraste e leitura perfeita dos textos no desktop */
+.banner-overlay-opacidade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(13, 13, 13, 0.88) 0%, rgba(26, 26, 26, 0.72) 50%, rgba(42, 8, 8, 0.80) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Conteúdo de texto posicionado sobre o banner */
+.banner-conteudo {
+    position: relative;
+    z-index: 3;
+    padding: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    color: #ffffff;
+}
+
+.banner-com-texto.banner-parceria .banner-conteudo {
+    max-width: 750px;
+}
+
+.banner-textos {
+    flex: 1;
+}
+
+.mini-title {
+    color: #ff3333;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.banner-textos h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+}
+
+.banner-textos h2 {
+    font-size: 1.8rem;
+    color: #e6e6e6;
+    margin-top: 5px;
+    font-weight: 700;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+}
+
+.banner-descricao {
+    margin-top: 15px;
+    color: #cccccc;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+}
+
+/* Imagem em destaque lateral (Tênis / Logo) */
+.banner-destaque-img {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.banner-destaque-img img {
+    max-width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 3;
+    transform: rotate(-10deg);
+    transition: transform 0.5s ease;
+    filter: drop-shadow(0 15px 15px rgba(0,0,0,0.8));
+}
+
+.banner-com-texto:hover .banner-destaque-img img {
+    transform: rotate(-4deg) scale(1.05);
+}
+
+/* Garante que os banners com arte e texto não cortem nas laterais */
+.banner.banner-gravity .img-banner,
+.banner.banner3-gravity .img-banner {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* MOBILE: MOSTRA A IMAGEM INTEIRA SEM CORTES E SEM ESCURECER DEMAIS */
+@media (max-width: 768px) {
+    .banner-com-texto {
+        width: calc(100% - 24px);
+        margin: 16px auto;
+        border-radius: 18px;
+        aspect-ratio: auto;
+        min-height: 0;
+        flex-direction: column;
+        align-items: stretch;
+        background: linear-gradient(180deg, #0c0c0e 0%, #1a0709 100%);
+    }
+
+    .banner-com-texto img.banner-fundo {
+        position: relative;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        display: block;
+    }
+
+    .banner-overlay-opacidade {
+        display: none;
+    }
+
+    .banner-conteudo {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px 18px 24px;
+        gap: 16px;
+        margin-top: -18px;
+        background: linear-gradient(180deg, rgba(12, 12, 14, 0) 0%, #0d0d0f 18%, #1c0709 100%);
+    }
+
+    .mini-title {
+        font-size: 0.78rem;
+        margin-bottom: 4px;
+    }
+
+    .banner-textos h1 {
+        font-size: 1.65rem;
+        line-height: 1.12;
+    }
+
+    .banner-textos h2 {
+        font-size: 1.15rem;
+        margin-top: 4px;
+    }
+
+    .banner-descricao {
+        font-size: 0.9rem;
+        line-height: 1.45;
+        margin-top: 10px;
+    }
+
+    .banner-destaque-img img {
+        max-width: 210px;
+        transform: rotate(-5deg);
+    }
+
+    .banner.banner-gravity,
+    .banner.banner3-gravity {
+        padding: 14px 12px;
+        margin: 16px 0;
+    }
+}
+</style>
+
+</head>
+<body>
+
+<header>
+<div class="navbar">
+    <!-- LOGO E BOTÃO DE PERFIL ALINHADOS À ESQUERDA -->
+    <div style="display: flex; align-items: center; gap: 20px;">
+        <div class="logo">
+            <img src="./img/logoHustverme.png" alt="Logo Hust">
+        </div>
+        <button id="btn-perfil" class="nav-profile-btn" onclick="abrirPerfil()">
+            <img id="img-perfil-nav" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="nav-profile-img" alt="Perfil" loading="lazy" decoding="async">
+            <span id="txt-perfil-nav" style="font-size: 14px; font-weight: bold;">Convidado</span>
+        </button>
+    </div>
+
+    <!-- Menu responsivo com setas de navegação para celular -->
+    <div style="position: relative; display: flex; align-items: center; justify-content: flex-end; flex: 1;">
+        <button class="nav-scroll-btn nav-btn-left" onclick="rolarNav(-150)">❮</button>
+        <nav id="menuNav">
+            <a href="carrinho.html">🛒 <span id="contador">0</span></a>
+            <a href="index.html">INICIO</a>
+            <a href="catalogo.html">CATALOGO</a>
+            <a href="novidades.html">NOVIDADES</a>
+            <a href="Joganoestilo.html">SE JOGA NO ESTILO</a>
+            <a href="Equipe.html">EQUIPE</a>
+            <a href="ajustes.html" class="nav-gear-btn" title="Ajustes" aria-label="Ajustes">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+            </a>
+        </nav>
+        <button class="nav-scroll-btn nav-btn-right" onclick="rolarNav(150)">❯</button>
+    </div>
+</div>
+</header>
+
+<!-- 1º BANNER: COM O TÊNIS NO INÍCIO -->
+<section class="banner-com-texto">
+    <img src="./img/Bannerjg.png" alt="Fundo Banner Tênis" class="banner-fundo" loading="lazy" decoding="async">
+    <div class="banner-overlay-opacidade"></div>
+    <div class="banner-conteudo">
+        <div class="banner-textos">
+            <p class="mini-title">2026 DROP</p>
+            <h1>NOVA COLEÇÃO HUST</h1>
+            <h2>SE JOGA NO ESTILO</h2>
+            <p class="banner-descricao">
+            Mais que um tênis. Uma declaração.<br>
+            Design agressivo, conforto extremo e identidade urbana.
+            </p>
+        </div>
+        <div class="banner-destaque-img">
+            <img src="./img/HUSTSELIGANOESTILO01.png" alt="Tênis Hust" loading="lazy" decoding="async">
+        </div>
+    </div>
+</section>
+
+
+<section class="banner banner-gravity">
+     <img src="./img/sejgne/BLEWSJG.png" alt="Coleção Black or White" class="img-banner" loading="lazy" decoding="async">
+</section>
+
+<!-- SEÇÃO 1: BLACK OR WHITE -->
+<section class="secao-produtos">
+<h1 class="titulo">Para Mudar o Visual</h1>
+
+  <div class="topo">
+    <div class="controles">
+      <button class="btn-esquerda">❮</button>
+      <button class="btn-direita">❯</button>
+    </div>
+    <a href="catalogo.html" class="ver-todos">VER TODOS OS PRODUTOS HUST <span>↗</span></a>
+  </div>
+
+  <div class="carrossel-produtos">
+    <div class="lista">
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Black or White/camisas (2).jpg" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa Oversized Neymar Jr</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 119,90</div>
+        <div class="pix">R$ 95,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 23,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Black or White/camisas (3).jpg" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa Oversized Black Minimalist</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 129,90</div>
+        <div class="pix">R$ 103,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 25,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Black or White/camisas (4).jpg" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa Oversized White Urban</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 139,90</div>
+        <div class="pix">R$ 111,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 27,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Black or White/camisas (5).jpg" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa Street Monogram Black</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 149,90</div>
+        <div class="pix">R$ 119,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 29,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Blck1.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa HÜST Black Ops</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 389,90</div>
+        <div class="pix">R$ 311,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 77,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Blck2.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa HÜST Stealth Dark</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 399,90</div>
+        <div class="pix">R$ 319,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 79,97 sem juros</div>
+      </div>
+      
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Blck3.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa HÜST Shadow Leather</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 419,90</div>
+        <div class="pix">R$ 335,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 83,97 sem juros</div>
+      </div>
+      
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Black or White/camisas.jpg" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa HÜST Monochrome Fit</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 129,90</div>
+        <div class="pix">R$ 103,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 25,97 sem juros</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- SEÇÃO 2: CONTINUAÇÃO BLACK OR WHITE / WHITE -->
+<section class="secao-produtos">
+   <div class="topo">
+    <div class="controles">
+      <button class="btn-esquerda">❮</button>
+      <button class="btn-direita">❯</button>
+    </div>
+    <a href="catalogo.html" class="ver-todos">VER TODOS OS PRODUTOS HUST <span>↗</span></a>
+  </div>
+
+  <div class="carrossel-produtos">
+    <div class="lista">
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/white3.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa HÜST Pure White High</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 379,90</div>
+        <div class="pix">R$ 303,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 75,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/white4.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST White Classic</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 349,90</div>
+        <div class="pix">R$ 279,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 69,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Black or White/camisas (8).jpg" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa Oversized White Graphic</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 139,90</div>
+        <div class="pix">R$ 111,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 27,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Black or White/camisas (9).jpg" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa HÜST Clean Aesthetic</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 129,90</div>
+        <div class="pix">R$ 103,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 25,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Black or White/camisas (10).jpg" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa HÜST Street Vision</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 149,90</div>
+        <div class="pix">R$ 119,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 29,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Black or White/camisas (11).jpg" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa HÜST Cyber Type</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 139,90</div>
+        <div class="pix">R$ 111,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 27,97 sem juros</div>
+      </div>
+      
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/white2.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa HÜST Off-White Runner</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 399,90</div>
+        <div class="pix">R$ 319,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 79,97 sem juros</div>
+      </div>
+      
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/white1.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa HÜST Low Top Snow</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 369,90</div>
+        <div class="pix">R$ 295,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 73,97 sem juros</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="banner banner3-gravity">
+     <img src="./img/sejgne/SJG1.png" alt="Coleção Hust" class="img-banner" loading="lazy" decoding="async">
+</section>
+
+<!-- SEÇÃO 3: A COLEÇÃO HUST -->
+<section class="secao-produtos">
+<h1 class="titulo">A Coleção Hust</h1>
+   <div class="topo">
+    <div class="controles">
+      <button class="btn-esquerda">❮</button>
+      <button class="btn-direita">❯</button>
+    </div>
+    <a href="catalogo.html" class="ver-todos">VER TODOS OS PRODUTOS HUST <span>↗</span></a>
+  </div>
+
+  <div class="carrossel-produtos">
+    <div class="lista">
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/37.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Air Velocity</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 399,90</div>
+        <div class="pix">R$ 319,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 79,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/38.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST High Volt</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 429,90</div>
+        <div class="pix">R$ 343,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 85,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/39.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Street Core</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 379,90</div>
+        <div class="pix">R$ 303,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 75,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/40.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Retro Skate</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 359,90</div>
+        <div class="pix">R$ 287,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 71,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/41.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Alpha Black</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 449,90</div>
+        <div class="pix">R$ 359,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 89,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/42.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Fusion Red</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 419,90</div>
+        <div class="pix">R$ 335,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 83,97 sem juros</div>
+      </div>
+      
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/43.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Dark Knight</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 399,90</div>
+        <div class="pix">R$ 319,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 79,97 sem juros</div>
+      </div>
+      
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/44.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Cyberpunk Edition</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 469,90</div>
+        <div class="pix">R$ 375,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 93,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/55.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Storm White</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 389,90</div>
+        <div class="pix">R$ 311,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 77,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/56.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Overload Grey</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 409,90</div>
+        <div class="pix">R$ 327,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 81,97 sem juros</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<br>
+
+<!-- SEÇÃO 4: MAIS ITENS DA COLEÇÃO HUST -->
+<section class="secao-produtos">
+   <div class="topo">
+    <div class="controles">
+      <button class="btn-esquerda">❮</button>
+      <button class="btn-direita">❯</button>
+    </div>
+    <a href="catalogo.html" class="ver-todos">VER TODOS OS PRODUTOS HUST <span>↗</span></a>
+  </div>
+
+  <div class="carrossel-produtos">
+    <div class="lista">
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/45.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Phantom Black</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 399,90</div>
+        <div class="pix">R$ 319,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 79,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/46.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Matrix Sole</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 419,90</div>
+        <div class="pix">R$ 335,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 83,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/47.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Vanguard High</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 439,90</div>
+        <div class="pix">R$ 351,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 87,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/48.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Apex Red</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 389,90</div>
+        <div class="pix">R$ 311,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 77,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/49.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Orbit Canvas</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 329,90</div>
+        <div class="pix">R$ 263,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 65,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/50.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Street Glide</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 369,90</div>
+        <div class="pix">R$ 295,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 73,97 sem juros</div>
+      </div>
+      
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/51.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Impact White</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 399,90</div>
+        <div class="pix">R$ 319,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 79,97 sem juros</div>
+      </div>
+      
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/52.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Legend Leather</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 489,90</div>
+        <div class="pix">R$ 391,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 97,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/53.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Drift Low</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 349,90</div>
+        <div class="pix">R$ 279,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 69,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/TenisHust/54.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Tênis HÜST Venom Black</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 429,90</div>
+        <div class="pix">R$ 343,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 85,97 sem juros</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 2º BANNER: PARCERIA HUST X FIRE -->
+<section class="banner-com-texto">
+    <img src="./img/Bannerjg2.png" alt="Fundo Banner Hust x Fire" class="banner-fundo" loading="lazy" decoding="async">
+    <div class="banner-overlay-opacidade"></div>
+    <div class="banner-conteudo">
+        <div class="banner-textos">
+            <p class="mini-title">2027 DROP</p>
+            <h1>HUST X FIRE</h1>
+            <h2>SE JOGA NO ESTILO</h2>
+            <p class="banner-descricao">
+             Muito além de um Tênis, agora temos a Over do Momento!<br>
+            A Fire está em colaboração com a Hust, confira os nossos kits e dê uma mudada em seu visual.
+            </p>
+        </div>
+        <div class="banner-destaque-img">
+            <img src="./img/logoHustverme.png" alt="Logo Hust x Fire" loading="lazy" decoding="async">
+        </div>
+    </div>
+</section>
+
+<!-- SEÇÃO 5: HUST X FIRE (PARTE 1) -->
+<section class="secao-produtos">
+  <div class="topo">
+    <div class="controles">
+      <button class="btn-esquerda">❮</button>
+      <button class="btn-direita">❯</button>
+    </div>
+    <a href="catalogo.html" class="ver-todos">VER TODOS OS PRODUTOS HUST <span>↗</span></a>
+  </div>
+
+  <div class="carrossel-produtos">
+    <div class="lista">
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Fire/fire.png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa Oversized Fire Flame Red</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 159,90</div>
+        <div class="pix">R$ 127,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 31,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Fire/fire (2).png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa HÜST x Fire Black Logo</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 149,90</div>
+        <div class="pix">R$ 119,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 29,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Fire/fire (3).png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa HÜST x Fire Heavy Hoodie</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 299,90</div>
+        <div class="pix">R$ 239,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 59,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Fire/fire (4).png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa Oversized Fire Street Art</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 149,90</div>
+        <div class="pix">R$ 119,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 29,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Fire/fire (5).png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa Jogger HÜST x Fire</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 229,90</div>
+        <div class="pix">R$ 183,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 45,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Fire/fire (6).png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa HÜST x Fire Snapback</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 99,90</div>
+        <div class="pix">R$ 79,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 19,97 sem juros</div>
+      </div>
+      
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Fire/fire (7).png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa HÜST x Fire Tactical</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 129,90</div>
+        <div class="pix">R$ 103,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 25,97 sem juros</div>
+      </div>
+      
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Fire/fire (8).png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Camisa HÜST x Fire Burned Graphic</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 159,90</div>
+        <div class="pix">R$ 127,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 31,97 sem juros</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<br>
+
+<!-- SEÇÃO 6: HUST X FIRE (PARTE 2 - FINAL) -->
+<section class="secao-produtos">
+  <div class="topo">
+    <div class="controles">
+      <button class="btn-esquerda">❮</button>
+      <button class="btn-direita">❯</button>
+    </div>
+    <a href="catalogo.html" class="ver-todos">VER TODOS OS PRODUTOS HUST <span>↗</span></a>
+  </div>
+
+  <div class="carrossel-produtos">
+    <div class="lista">
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Fire/fire (11).png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Calça HÜST x Fire Crop Zip</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 279,90</div>
+        <div class="pix">R$ 223,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 55,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Fire/fire (12).png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Calça Oversized Fire Smoke White</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 149,90</div>
+        <div class="pix">R$ 119,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 29,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Fire/fire (13).png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Calça Windbreaker HÜST x Fire</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 349,90</div>
+        <div class="pix">R$ 279,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 69,97 sem juros</div>
+      </div>
+
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Fire/fire (14).png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Calça Street HÜST x Fire Fleece</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 169,90</div>
+        <div class="pix">R$ 135,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 33,97 sem juros</div>
+      </div>
+      
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Fire/fire (15).png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Calça HÜST x Fire Red</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 79,90</div>
+        <div class="pix">R$ 63,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 15,97 sem juros</div>
+      </div>
+      
+      <div class="card">
+        <div class="favorito">♡</div>
+        <img src="./img/sejgne/Fire/fire (16).png" alt="Produto" loading="lazy" decoding="async">
+        <button class="compra">COMPRA RÁPIDA</button>
+        <div class="nome">Calça HÜST x Fire Special Drop</div>
+        <div class="estrelas">★★★★★</div>
+        <div class="antigo">R$ 499,90</div>
+        <div class="pix">R$ 399,90 via PIX</div>
+        <div class="parcelas">ou 4x de R$ 99,97 sem juros</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="background-color: #050505; border-top: 1px solid #1a1a1a; padding: 40px 20px; text-align: center; color: #777; font-size: 0.9rem;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; align-items: center;">
+        <img src="./img/logoHustverme.png" alt="Hust Logo" style="width: 80px; opacity: 0.8;" loading="lazy" decoding="async">
+        <p>© 2026 HÜST. Todos os direitos reservados.</p>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <a href="https://instagram.com/hust.company" target="_blank" style="color: #fff; display: inline-flex;" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+            </a>
+            <a href="#" style="color: #fff; display: inline-flex;" aria-label="WhatsApp">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+            </a>
+            <a href="#" style="color: #fff; display: inline-flex;" aria-label="TikTok">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+</footer>
+
+
+<!-- MODAL DE PERFIL -->
+<div id="modalPerfil" class="modal-perfil">
+    <div class="perfil-card">
+        <span class="perfil-fechar" onclick="fecharPerfil()">&times;</span>
+        <div class="perfil-foto-container">
+            <img id="img-perfil-modal" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Foto do Perfil" loading="lazy" decoding="async">
+            <button class="btn-editar-foto" onclick="mudarFotoPerfil()"><i class="fas fa-camera"></i></button>
+        </div>
+        <div class="perfil-info">
+            <h3 id="nome-perfil-modal">Nome</h3>
+            <p id="email-perfil-modal">email@exemplo.com</p>
+            <p id="estilo-perfil-modal">Estilo: -</p>
+        </div>
+        <button class="btn-sair-conta" onclick="sairDaConta()">Sair da Conta</button>
+    </div>
+</div>
+
+<!-- MODAL DE DETALHES DO PRODUTO -->
+<div id="modalProduto" class="modal-produto">
+    <div class="modal-conteudo">
+        <span class="fechar-modal" onclick="fecharModalProduto()">&times;</span>
+        <div class="modal-imagem-box"><img id="modalImg" src="" alt="Produto Zoom" loading="lazy" decoding="async"></div>
+        <div class="modal-detalhes">
+            <h2 id="modalNome">Nome do Produto</h2>
+            <div class="modal-precos">
+                <div id="modalAntigo" class="modal-antigo">R$ 0,00</div>
+                <div id="modalPix" class="modal-pix">R$ 0,00 via PIX</div>
+                <div id="modalParcelas" class="modal-parcelas">ou 4x sem juros</div>
+            </div>
+            <button id="modalBtnComprar" class="btn-modal-comprar">Adicionar ao Carrinho</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// SISTEMA DE PERFIL
+function verificarPerfil() {
+    const usuario = JSON.parse(localStorage.getItem('hust_user'));
+    const btnTexto = document.getElementById('txt-perfil-nav');
+    const imgNav = document.getElementById('img-perfil-nav');
+    const imgModal = document.getElementById('img-perfil-modal');
+
+    if (usuario) {
+        btnTexto.innerText = usuario.nome.split(' ')[0];
+        if (usuario.foto) { imgNav.src = usuario.foto; imgModal.src = usuario.foto; }
+    } else {
+        btnTexto.innerText = "Convidado";
+        imgNav.src = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+    }
+}
+function abrirPerfil() {
+    const usuario = JSON.parse(localStorage.getItem('hust_user'));
+    if (!usuario) {
+        if (confirm("Você ainda não tem uma conta. Deseja criar uma agora?")) window.location.href = "Cadastro.html";
+    } else {
+        document.getElementById('nome-perfil-modal').innerText = usuario.nome;
+        document.getElementById('email-perfil-modal').innerText = usuario.email;
+        document.getElementById('estilo-perfil-modal').innerText = (usuario.estilo ? "Estilo Preferido: " + usuario.estilo : "Membro HÜST");
+        document.getElementById('modalPerfil').style.display = "flex";
+    }
+}
+function fecharPerfil() { document.getElementById('modalPerfil').style.display = "none"; }
+function mudarFotoPerfil() {
+    const novaFoto = prompt("Cole aqui o link (URL) da sua nova foto de perfil:");
+    if (novaFoto) {
+        const usuario = JSON.parse(localStorage.getItem('hust_user'));
+        usuario.foto = novaFoto;
+        localStorage.setItem('hust_user', JSON.stringify(usuario));
+        verificarPerfil();
+        alert("Foto atualizada com sucesso!");
+    }
+}
+function sairDaConta() {
+    if(confirm("Tem certeza que deseja sair?")) {
+        localStorage.removeItem('hust_user');
+        fecharPerfil();
+        verificarPerfil();
+    }
+}
+
+// SCROLL NAV E MODAL PRODUTO
+function rolarNav(offset) { const nav = document.getElementById('menuNav'); if (nav) nav.scrollBy({ left: offset, behavior: 'smooth' }); }
+function fecharModalProduto() { const modal = document.getElementById('modalProduto'); if (modal) { modal.style.display = "none"; document.body.style.overflow = "auto"; } }
+window.addEventListener('click', (event) => { const modal = document.getElementById('modalProduto'); if (event.target === modal) fecharModalProduto(); });
+
+document.addEventListener("DOMContentLoaded", () => {
+    verificarPerfil();
+    try {
+        let contraste = localStorage.getItem('hust_contraste');
+        let tamanhoFonte = localStorage.getItem('hust_fonte');
+        let dislexia = localStorage.getItem('hust_dislexia') === 'true';
+        if (contraste && contraste !== 'normal') document.body.classList.add(contraste);
+        if (tamanhoFonte) document.body.classList.add(tamanhoFonte);
+        if (dislexia) document.body.classList.add('fonte-legivel');
+    } catch (e) {}
+
+    let carrinho = JSON.parse(localStorage.getItem('hust_carrinho')) || [];
+    const contador = document.getElementById('contador');
+    if (contador) contador.innerText = carrinho.length;
+
+    const botoesCompra = document.querySelectorAll('.compra');
+    botoesCompra.forEach(botao => {
+        botao.addEventListener('click', (e) => {
+            const card = e.target.closest('.card');
+            if (!card) return;
+            const nome = card.querySelector('.nome') ? card.querySelector('.nome').innerText : "Produto Hust";
+            const imagem = card.querySelector('img') ? card.querySelector('img').src : "";
+            let textoPreco = card.querySelector('.pix') ? card.querySelector('.pix').innerText : "R$ 199,90";
+            let precoNumerico = HustFX.parsePreco(textoPreco, 199.90);
+            let produto = { nome: nome, imagem: imagem, preco: precoNumerico };
+            let carrinhoAtual = JSON.parse(localStorage.getItem('hust_carrinho')) || [];
+            carrinhoAtual.push(produto);
+            localStorage.setItem('hust_carrinho', JSON.stringify(carrinhoAtual));
+            window.location.href = 'carrinho.html';
+        });
+    });
+
+    const imagensProdutos = document.querySelectorAll('.card img');
+    imagensProdutos.forEach(img => {
+        img.style.cursor = "pointer";
+        img.addEventListener('click', (e) => {
+            const card = e.target.closest('.card');
+            if (!card) return;
+            document.getElementById('modalImg').src = e.target.src;
+            document.getElementById('modalNome').innerText = card.querySelector('.nome') ? card.querySelector('.nome').innerText : 'Produto';
+            document.getElementById('modalAntigo').innerText = card.querySelector('.antigo') ? card.querySelector('.antigo').innerText : '';
+            document.getElementById('modalPix').innerText = card.querySelector('.pix') ? card.querySelector('.pix').innerText : '';
+            document.getElementById('modalParcelas').innerText = card.querySelector('.parcelas') ? card.querySelector('.parcelas').innerText : '';
+            document.getElementById('modalBtnComprar').onclick = () => {
+                const btnOriginal = card.querySelector('.compra');
+                if (btnOriginal) btnOriginal.click();
+            };
+            const modal = document.getElementById('modalProduto');
+            if (modal) { modal.style.display = "flex"; document.body.style.overflow = "hidden"; }
+        });
+    });
+});
+</script>
+<script src="hust-sync.js"></script>
+<!-- Rádio HÜST (toca contínuo entre páginas e fica abafado no carrinho) -->
+<script src="hust-radio.js"></script>
+</body>
+</html>

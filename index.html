@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="hust-fx.js"></script>
+<title>Hüst Tênis - Início</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="HUst%20Logo.jpg" type="image/jpeg">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"></noscript>
+</head>
+<body>
+
+<header>
+<div class="navbar">
+    <!-- LOGO E BOTÃO DE PERFIL -->
+    <div style="display: flex; align-items: center; gap: 16px;">
+        <div class="logo">
+            <img src="./img/logoHustverme.png" alt="Logo Hust">
+        </div>
+        <button id="btn-perfil" class="nav-profile-btn" onclick="abrirPerfil()">
+            <img id="img-perfil-nav" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="nav-profile-img" alt="Perfil" loading="lazy" decoding="async">
+            <span id="txt-perfil-nav" style="font-size: 14px; font-weight: bold;">Convidado</span>
+        </button>
+    </div>
+
+    <!-- MENU RESPONSIVO COM SETAS -->
+    <div style="position: relative; display: flex; align-items: center; justify-content: flex-end; flex: 1; min-width: 0;">
+        <button type="button" class="nav-scroll-btn nav-btn-left" onclick="rolarNav(-150)">❮</button>
+        <nav id="menuNav">
+            <a href="carrinho.html">🛒 <span id="contador">0</span></a>
+            <a href="index.html">INICIO</a>
+            <a href="catalogo.html">CATALOGO</a>
+            <a href="novidades.html">NOVIDADES</a>
+            <a href="Joganoestilo.html">SE JOGA NO ESTILO</a>
+            <a href="Equipe.html">EQUIPE</a>
+            <a href="ajustes.html" class="nav-gear-btn" title="Ajustes" aria-label="Ajustes">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+            </a>
+        </nav>
+        <button type="button" class="nav-scroll-btn nav-btn-right" onclick="rolarNav(150)">❯</button>
+    </div>
+</div>
+</header>
+
+<main>
+
+    <!-- CARROSSEL PRINCIPAL (HERO) -->
+    <section class="carrossel">
+            <div class="slides">
+            <div class="slide"><img fetchpriority="high" src="./img/Carrossel JGS.png" alt="Banner 1"></div>
+            <div class="slide"><img src="./img/Carrossel Estilo HUSTLE Urbano com Modelo Sentado (500 x 100 px) (1889 x 621 px) (2).png" alt="Banner 2" loading="lazy" decoding="async"></div>
+            <div class="slide"><img src="./img/sejgne/BLEWSJG.png" alt="Banner 3" loading="lazy" decoding="async"></div>
+            <div class="slide"><img src="./img/Carrossel Estilo HUST STREET.png" alt="Banner 4" loading="lazy" decoding="async"></div>
+        </div>
+    </section>
+
+   <!-- FAIXA DE BENEFÍCIOS COM ÍCONES SVG (NÃO FALHAM) -->
+    <section class="beneficios-bar">
+        <div class="beneficio-item">
+            <span class="beneficio-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11v12"></path>
+                    <path d="M14 9h5l4 4v4h-2"></path>
+                    <circle cx="7.5" cy="17.5" r="2.5"></circle>
+                    <circle cx="17.5" cy="17.5" r="2.5"></circle>
+                </svg>
+            </span>
+            <span>Frete Grátis Sul/Sudeste</span>
+        </div>
+
+        <div class="beneficio-item">
+            <span class="beneficio-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                    <path d="M14 14h3v3"></path>
+                    <path d="M21 14v7h-7"></path>
+                </svg>
+            </span>
+            <span>10% OFF no PIX</span>
+        </div>
+
+        <div class="beneficio-item">
+            <span class="beneficio-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <path d="m9 12 2 2 4-4"></path>
+                </svg>
+            </span>
+            <span>Compra 100% Segura</span>
+        </div>
+
+        <div class="beneficio-item">
+            <span class="beneficio-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                    <path d="M3 3v5h5"></path>
+                </svg>
+            </span>
+            <span>1ª Troca Grátis</span>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 3 CARDS ESTILO NIKE -->
+    <section class="secao-cards-nike">
+        <h2 class="titulo-secao-nike">Explore a Hüst</h2>
+        
+        <div class="grid-cards-nike">
+            <a href="catalogo.html" class="card-nike">
+                <img src="./img/icon2.png" alt="Catálogo Hüst" loading="lazy" decoding="async">
+                <div class="card-nike-overlay">
+                    <span class="card-nike-subtitulo">Coleção Completa</span>
+                    <h3>Catálogo</h3>
+                    <span class="btn-nike">Explorar</span>
+                </div>
+            </a>
+
+            <a href="novidades.html" class="card-nike">
+                <img src="./img/icon4.png" alt="Novidades Hüst" loading="lazy" decoding="async">
+                <div class="card-nike-overlay">
+                    <span class="card-nike-subtitulo">Acabaram de Chegar</span>
+                    <h3>Novidades</h3>
+                    <span class="btn-nike">Conferir</span>
+                </div>
+            </a>
+
+            <a href="Joganoestilo.html" class="card-nike">
+                <img src="./img/icon1.png" alt="Se Joga no Estilo" loading="lazy" decoding="async">
+                <div class="card-nike-overlay">
+                    <span class="card-nike-subtitulo">Atitude Urbana</span>
+                    <h3>Se Joga no Estilo</h3>
+                    <span class="btn-nike">Ver Mais</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DESTAQUES DA SEMANA -->
+    <section class="secao-produtos">
+        <div class="topo">
+            <h1 class="titulo">Destaques da Semana</h1>
+            <div class="controles">
+                <button type="button" class="btn-esquerda" aria-label="Anterior">❮</button>
+                <button type="button" class="btn-direita" aria-label="Próximo">❯</button>
+            </div>
+            <a href="catalogo.html" class="ver-todos">VER CATÁLOGO COMPLETO <span>↗</span></a>
+        </div>
+
+        <div class="carrossel-produtos">
+            <div class="lista">
+                <div class="card">
+                    <div class="favorito">♡</div>
+                    <img src="./img/Hust tenis/h1.png" alt="HÜST Legacy Preto" loading="lazy" decoding="async">
+                    <button type="button" class="compra">COMPRA RÁPIDA</button>
+                    <div class="nome">HÜST Legacy Preto</div>
+                    <div class="estrelas">★★★★★</div>
+                    <div class="antigo">R$ 449,90</div>
+                    <div class="pix">R$ 359,90 via PIX</div>
+                    <div class="parcelas">ou 4x de R$ 89,97 sem juros</div>
+                </div>
+
+                <div class="card">
+                    <div class="favorito">♡</div>
+                    <img src="./img/Hust tenis/h10.png" alt="HÜST High Top Red" loading="lazy" decoding="async">
+                    <button type="button" class="compra">COMPRA RÁPIDA</button>
+                    <div class="nome">HÜST High Top Red</div>
+                    <div class="estrelas">★★★★★</div>
+                    <div class="antigo">R$ 499,90</div>
+                    <div class="pix">R$ 399,90 via PIX</div>
+                    <div class="parcelas">ou 4x de R$ 99,97 sem juros</div>
+                </div>
+
+                <div class="card">
+                    <div class="favorito">♡</div>
+                    <img src="./img/Hust tenis/h19.png" alt="HÜST Street Runner" loading="lazy" decoding="async">
+                    <button type="button" class="compra">COMPRA RÁPIDA</button>
+                    <div class="nome">HÜST Street Runner</div>
+                    <div class="estrelas">★★★★★</div>
+                    <div class="antigo">R$ 389,90</div>
+                    <div class="pix">R$ 319,90 via PIX</div>
+                    <div class="parcelas">ou 4x de R$ 79,97 sem juros</div>
+                </div>
+
+                <div class="card">
+                    <div class="favorito">♡</div>
+                    <img src="./img/sejgne/Blck1.png" alt="HÜST Black Ops" loading="lazy" decoding="async">
+                    <button type="button" class="compra">COMPRA RÁPIDA</button>
+                    <div class="nome">HÜST Black Ops</div>
+                    <div class="estrelas">★★★★★</div>
+                    <div class="antigo">R$ 429,90</div>
+                    <div class="pix">R$ 349,90 via PIX</div>
+                    <div class="parcelas">ou 4x de R$ 87,47 sem juros</div>
+                </div>
+
+                <div class="card">
+                    <div class="favorito">♡</div>
+                    <img src="./img/Hust tenis/h2.png" alt="Tênis HÜST Street Black" loading="lazy" decoding="async">
+                    <button type="button" class="compra">COMPRA RÁPIDA</button>
+                    <div class="nome">Tênis HÜST Street Black</div>
+                    <div class="estrelas">★★★★★</div>
+                    <div class="antigo">R$ 349,90</div>
+                    <div class="pix">R$ 279,90 via PIX</div>
+                    <div class="parcelas">ou 4x de R$ 69,97 sem juros</div>
+                </div>
+
+                <div class="card">
+                    <div class="favorito">♡</div>
+                    <img src="./img/Hust tenis/h3.png" alt="Tênis HÜST Urban White" loading="lazy" decoding="async">
+                    <button type="button" class="compra">COMPRA RÁPIDA</button>
+                    <div class="nome">Tênis HÜST Urban White</div>
+                    <div class="estrelas">★★★★★</div>
+                    <div class="antigo">R$ 399,90</div>
+                    <div class="pix">R$ 319,90 via PIX</div>
+                    <div class="parcelas">ou 4x de R$ 79,97 sem juros</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SESSÃO DE DEPOIMENTOS & NÚMEROS ANIMADOS -->
+    <section class="comentarios" id="secao-depoimentos">
+        <div class="comentarios-container">
+            <div class="cabecalho">
+                <span class="subtitulo">O QUE DIZEM SOBRE NÓS</span>
+                <h1>A Voz da Rua</h1>
+                <div class="nota-geral">
+                    <span class="nota" data-target="4.9" data-decimais="1">0.0</span>
+                    <div>
+                        <div class="estrelas">★★★★★</div>
+                        <p>Baseado em +<span class="contador-numero" data-target="1200" data-sufixo="">0</span> avaliações de clientes</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comentarios-grid">
+                <div class="comentario-card">
+                    <div class="linha-vermelha"></div>
+                    <div class="cliente">
+                        <div class="avatar">MR</div>
+                        <div><h3>Marcos Roberto</h3><span>Comprador Verificado</span></div>
+                    </div>
+                    <div class="estrelas">★★★★★</div>
+                    <p class="texto">"Simplesmente absurdo! O HÜST Legacy Preto é o tênis mais confortável que já usei. O design é muito agressivo, chama atenção em qualquer lugar. Entrega no prazo certo."</p>
+                    <p class="data">Há 2 dias</p>
+                </div>
+
+                <div class="comentario-card">
+                    <div class="linha-vermelha"></div>
+                    <div class="cliente">
+                        <div class="avatar">AS</div>
+                        <div><h3>Aline Silva</h3><span>Comprador Verificado</span></div>
+                    </div>
+                    <div class="estrelas">★★★★★</div>
+                    <p class="texto">"A collab com a Fire tá pesada demais! Peguei a calça jogger e o moletom, o caimento é perfeito. O material é premium, não perde a cor nem encolhe."</p>
+                    <p class="data">Há 1 semana</p>
+                </div>
+
+                <div class="comentario-card">
+                    <div class="linha-vermelha"></div>
+                    <div class="cliente">
+                        <div class="avatar">JG</div>
+                        <div><h3>João Gabriel</h3><span>Comprador Verificado</span></div>
+                    </div>
+                    <div class="estrelas">★★★★★</div>
+                    <p class="texto">"Comprei o High Top Red e me surpreendi. A estrutura do tênis é muito firme, ótimo pra colar no role e até dar umas remadas no skate."</p>
+                    <p class="data">Há 2 semanas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO: NOVIDADES NAS REDES SOCIAIS -->
+    <section class="secao-redes-sociais">
+        <div class="redes-sociais-content">
+            <div class="redes-sociais-header">
+                <span class="badge-redes">⚡ DROP & BASTIDORES</span>
+                <h1 class="titulo-redes">Novidades nas Redes Sociais</h1>
+                <p class="subtitulo-redes">Fique por dentro dos últimos drops, reviews e conteúdos exclusivos da HÜST.</p>
+            </div>
+            
+            <div class="video-banner-container">
+                <div class="video-hud-top">
+                    <span class="live-tag">🔴 DESTAQUE</span>
+                    <span class="video-handle">@HUST.COMPANY</span>
+                </div>
+                <video controls autoplay muted loop playsinline preload="metadata">
+                    <source src="./img/Videos/v1.mp4" type="video/mp4">
+                    Seu navegador não suporta a tag de vídeo.
+                </video>
+            </div>
+        </div>
+    </section>
+
+   <!-- NEWSLETTER HÜST CLUB -->
+    <section class="newsletter-hust">
+        <div class="news-content">
+            <span class="news-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21.2 8.4c.5.38.8.97.8 1.6v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 .8-1.6l8-6a2 2 0 0 1 2.4 0l8 6Z"></path>
+                    <path d="m22 10-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 10"></path>
+                </svg>
+            </span>
+            <h2>Faça parte do HÜST CLUB</h2>
+            <p>Assine nossa newsletter e receba drops exclusivos, novidades e <strong>15% OFF</strong> na sua primeira compra.</p>
+            <form onsubmit="event.preventDefault(); alert('Bem-vindo ao Clube HÜST! Use o cupom HUST10 ou TCC20 no carrinho.');">
+                <div class="input-group">
+                    <input type="email" placeholder="Digite seu melhor e-mail" required>
+                    <button type="submit">ASSINAR</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+</main>
+
+<footer style="background-color: #050505; border-top: 1px solid #1a1a1a; padding: 40px 20px; text-align: center; color: #777; font-size: 0.9rem;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; align-items: center;">
+        <img src="./img/logoHustverme.png" alt="Hust Logo" style="width: 80px; opacity: 0.8;" loading="lazy" decoding="async">
+        <p>© 2026 HÜST. Todos os direitos reservados.</p>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <a href="https://instagram.com/hust.company" target="_blank" style="color: #fff; display: inline-flex;" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+            </a>
+            <a href="#" style="color: #fff; display: inline-flex;" aria-label="WhatsApp">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+            </a>
+            <a href="#" style="color: #fff; display: inline-flex;" aria-label="TikTok">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+</footer>
+
+
+<!-- MODAL DE AUTENTICAÇÃO (LOGIN / CRIAR CONTA) -->
+<div id="modalAuth" class="modal-auth">
+    <div class="auth-card">
+        <span class="auth-fechar" onclick="fecharAuth()">&times;</span>
+        <div class="auth-logo-side">
+            <img src="./img/logoHustverme.png" alt="Logo Hust">
+        </div>
+        <div class="auth-form-side">
+            <h2>Bem-vindo à HÜST</h2>
+            <p>Faça login ou crie sua conta para acessar seu perfil e personalizar sua foto.</p>
+            <button type="button" class="btn-auth btn-login" onclick="simularLogin()">Já tenho conta</button>
+            <button type="button" class="btn-auth btn-create" onclick="window.location.href='Cadastro.html'">Quero criar uma</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DE PERFIL (LOGADO) -->
+<div id="modalPerfil" class="modal-perfil">
+    <div class="perfil-card">
+        <span class="perfil-fechar" onclick="fecharPerfil()">&times;</span>
+        <div class="perfil-foto-container">
+            <img id="img-perfil-modal" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Foto do Perfil" loading="lazy" decoding="async">
+            <button type="button" class="btn-editar-foto" onclick="mudarFotoPerfil()" title="Personalizar Foto">📷</button>
+        </div>
+        <div class="perfil-info">
+            <h3 id="nome-perfil-modal">Nome</h3>
+            <p id="email-perfil-modal">email@exemplo.com</p>
+        </div>
+
+        <div id="seletorIconesAdmin" class="netflix-picker-box" style="display: none;">
+            <div class="netflix-picker-titulo">
+                ✅ Ícones dos Participantes (Modo Admin)
+            </div>
+            <div id="gridIconesParticipantes" class="netflix-grid"></div>
+            <button type="button" class="btn-link-url-admin" onclick="mudarFotoPorUrl()">
+                🔗 Ou colar link (URL) personalizado
+            </button>
+        </div>
+
+        <button type="button" class="btn-sair-conta" onclick="sairDaConta()">Sair da Conta</button>
+    </div>
+</div>
+
+<!-- MODAL DE DETALHES DO PRODUTO -->
+<div id="modalProduto" class="modal-produto">
+    <div class="modal-conteudo">
+        <span class="fechar-modal" onclick="fecharModalProduto()">&times;</span>
+        <div class="modal-imagem-box"><img id="modalImg" src="" alt="Produto Zoom" loading="lazy" decoding="async"></div>
+        <div class="modal-detalhes">
+            <h2 id="modalNome">Nome do Produto</h2>
+            <div class="modal-precos">
+                <div id="modalAntigo" class="modal-antigo">R$ 0,00</div>
+                <div id="modalPix" class="modal-pix">R$ 0,00 via PIX</div>
+                <div id="modalParcelas" class="modal-parcelas">ou 4x sem juros</div>
+            </div>
+            <button type="button" id="modalBtnComprar" class="btn-modal-comprar">Adicionar ao Carrinho</button>
+        </div>
+    </div>
+</div>
+
+<script src="hust-sync.js"></script>
+<script>
+const AVATARES_PARTICIPANTES_ADMIN = [
+    { nome: "Pedro Marchetti", img: "./img/icon1.png" },
+    { nome: "Lucas", img: "./img/icon2.png" },
+    { nome: "Vitor Pereira", img: "./img/icon3.png" },
+    { nome: "Lorenzo", img: "./img/icon4.png" },
+    { nome: "Marcos", img: "./img/icon5.png" },
+    { nome: "Paulo", img: "./img/icon6.png" },
+    { nome: "Logo HÜST", img: "./img/logoHustverme.png" }
+];
+
+function renderizarSeletorParticipantesAdmin() {
+    const usuario = JSON.parse(localStorage.getItem('hust_user')) || {};
+    const boxAdmin = document.getElementById('seletorIconesAdmin');
+    const grid = document.getElementById('gridIconesParticipantes');
+
+    if (!boxAdmin || !grid) return;
+
+    if (!usuario.isAdmin) {
+        boxAdmin.style.display = 'none';
+        grid.innerHTML = '';
+        return;
+    }
+
+    boxAdmin.style.display = 'block';
+    grid.innerHTML = '';
+
+    AVATARES_PARTICIPANTES_ADMIN.forEach((item) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'netflix-icon-card' + (usuario.foto === item.img ? ' ativo' : '');
+        btn.title = item.nome;
+        btn.setAttribute('aria-label', item.nome);
+        btn.innerHTML = `<img src="${item.img}" alt="${item.nome}" onerror="this.src='./img/logoHustverme.png';" loading="lazy" decoding="async">`;
+        btn.onclick = () => selecionarFotoParticipanteAdmin(item.img);
+        grid.appendChild(btn);
+    });
+}
+
+function selecionarFotoParticipanteAdmin(caminhoFoto) {
+    const usuario = JSON.parse(localStorage.getItem('hust_user'));
+    if (!usuario || !usuario.isAdmin) return;
+    usuario.foto = caminhoFoto;
+    localStorage.setItem('hust_user', JSON.stringify(usuario));
+    verificarPerfil();
+    renderizarSeletorParticipantesAdmin();
+}
+
+function mudarFotoPorUrl() {
+    const usuario = JSON.parse(localStorage.getItem('hust_user'));
+    if (!usuario) return;
+    const novaFoto = prompt("Cole aqui o link (URL) da sua nova foto de perfil:");
+    if (novaFoto && novaFoto.trim() !== "") {
+        usuario.foto = novaFoto.trim();
+        localStorage.setItem('hust_user', JSON.stringify(usuario));
+        verificarPerfil();
+        renderizarSeletorParticipantesAdmin();
+        alert("Foto atualizada com sucesso!");
+    }
+}
+
+function verificarPerfil() {
+    const usuario = JSON.parse(localStorage.getItem('hust_user'));
+    const btnTexto = document.getElementById('txt-perfil-nav');
+    const imgNav = document.getElementById('img-perfil-nav');
+    const imgModal = document.getElementById('img-perfil-modal');
+
+    if (usuario) {
+        btnTexto.innerText = "Olá, " + usuario.nome.split(' ')[0];
+        if (usuario.foto) {
+            imgNav.src = usuario.foto;
+            imgModal.src = usuario.foto;
+        } else {
+            imgNav.src = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+            imgModal.src = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+        }
+    } else {
+        btnTexto.innerText = "Convidado";
+        imgNav.src = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+    }
+}
+
+function abrirPerfil() {
+    const usuario = JSON.parse(localStorage.getItem('hust_user'));
+    if (!usuario) {
+        document.getElementById('modalAuth').style.display = "flex";
+    } else {
+        document.getElementById('nome-perfil-modal').innerText = usuario.nome;
+        document.getElementById('email-perfil-modal').innerText = usuario.email;
+        document.getElementById('modalPerfil').style.display = "flex";
+        renderizarSeletorParticipantesAdmin();
+    }
+}
+
+function fecharAuth() { document.getElementById('modalAuth').style.display = "none"; }
+function fecharPerfil() { document.getElementById('modalPerfil').style.display = "none"; }
+
+function simularLogin() {
+    const email = prompt("Digite seu email para entrar:");
+    if (email) {
+        const usuario = JSON.parse(localStorage.getItem('hust_user'));
+        if (usuario && usuario.email.toLowerCase() === email.trim().toLowerCase()) {
+            alert("Bem-vindo de volta, " + usuario.nome.split(' ')[0] + "!");
+            fecharAuth();
+            verificarPerfil();
+            if (typeof aplicarModoAdminNavbar === 'function') aplicarModoAdminNavbar();
+        } else {
+            alert("Conta não encontrada. Por favor, clique em 'Quero criar uma'.");
+        }
+    }
+}
+
+function mudarFotoPerfil() {
+    const usuario = JSON.parse(localStorage.getItem('hust_user'));
+    if (!usuario) return;
+
+    if (usuario.isAdmin) {
+        document.getElementById('nome-perfil-modal').innerText = usuario.nome;
+        document.getElementById('email-perfil-modal').innerText = usuario.email;
+        document.getElementById('modalPerfil').style.display = "flex";
+        renderizarSeletorParticipantesAdmin();
+    } else {
+        mudarFotoPorUrl();
+    }
+}
+
+function sairDaConta() {
+    if (confirm("Tem certeza que deseja sair?")) {
+        localStorage.removeItem('hust_user');
+        fecharPerfil();
+        verificarPerfil();
+        if (typeof aplicarModoAdminNavbar === 'function') aplicarModoAdminNavbar();
+        alert("Você saiu da conta.");
+    }
+}
+
+function rolarNav(valor) {
+    const nav = document.getElementById('menuNav');
+    if (nav) nav.scrollBy({ left: valor, behavior: 'smooth' });
+}
+
+function fecharModalProduto() {
+    const modal = document.getElementById('modalProduto');
+    if (modal) {
+        modal.style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+}
+
+window.addEventListener('click', (event) => {
+    const modalProd = document.getElementById('modalProduto');
+    const modalAuth = document.getElementById('modalAuth');
+    const modalPerf = document.getElementById('modalPerfil');
+    if (event.target === modalProd) fecharModalProduto();
+    if (event.target === modalAuth) fecharAuth();
+    if (event.target === modalPerf) fecharPerfil();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    verificarPerfil();
+
+    try {
+        let contraste = localStorage.getItem('hust_contraste');
+        let tamanhoFonte = localStorage.getItem('hust_fonte');
+        let dislexia = localStorage.getItem('hust_dislexia') === 'true';
+        if (contraste && contraste !== 'normal') document.body.classList.add(contraste);
+        if (tamanhoFonte) document.body.classList.add(tamanhoFonte);
+        if (dislexia) document.body.classList.add('fonte-legivel');
+    } catch (e) {}
+
+    let carrinho = JSON.parse(localStorage.getItem('hust_carrinho')) || [];
+    const contador = document.getElementById('contador');
+    if (contador) contador.innerText = carrinho.length;
+
+    const botoesCompra = document.querySelectorAll('.compra');
+    botoesCompra.forEach(botao => {
+        botao.addEventListener('click', (e) => {
+            if (botao.disabled) return;
+            const card = e.target.closest('.card');
+            if (!card) return;
+            const nome = card.querySelector('.nome') ? card.querySelector('.nome').innerText : "Produto Hust";
+            const imagem = card.querySelector('img') ? card.querySelector('img').src : "";
+            let textoPreco = card.querySelector('.pix') ? card.querySelector('.pix').innerText : "R$ 199,90";
+            let precoNumerico = HustFX.parsePreco(textoPreco, 199.90);
+            let produto = { nome: nome, imagem: imagem, preco: precoNumerico };
+            let carrinhoAtual = JSON.parse(localStorage.getItem('hust_carrinho')) || [];
+            carrinhoAtual.push(produto);
+            localStorage.setItem('hust_carrinho', JSON.stringify(carrinhoAtual));
+            window.location.href = 'carrinho.html';
+        });
+    });
+
+    // Carrosséis de produtos: controlados por hust-fx.js (passo certo, setas desativadas nas pontas e swipe no celular)
+
+    const imagensProdutos = document.querySelectorAll('.card img');
+    imagensProdutos.forEach(img => {
+        img.style.cursor = "pointer";
+        img.addEventListener('click', (e) => {
+            const card = e.target.closest('.card');
+            if (!card) return;
+            document.getElementById('modalImg').src = e.target.src;
+            document.getElementById('modalNome').innerText = card.querySelector('.nome') ? card.querySelector('.nome').innerText : 'Produto';
+            document.getElementById('modalAntigo').innerText = card.querySelector('.antigo') ? card.querySelector('.antigo').innerText : '';
+            document.getElementById('modalPix').innerText = card.querySelector('.pix') ? card.querySelector('.pix').innerText : '';
+            document.getElementById('modalParcelas').innerText = card.querySelector('.parcelas') ? card.querySelector('.parcelas').innerText : '';
+            document.getElementById('modalBtnComprar').onclick = () => {
+                const btnOriginal = card.querySelector('.compra');
+                if (btnOriginal && !btnOriginal.disabled) btnOriginal.click();
+            };
+            const modal = document.getElementById('modalProduto');
+            if (modal) {
+                modal.style.display = "flex";
+                document.body.style.overflow = "hidden";
+            }
+        });
+    });
+
+    const secaoDepoimentos = document.getElementById('secao-depoimentos');
+    let animado = false;
+
+    function animarNumeros() {
+        const elementos = document.querySelectorAll('.comentarios .nota, .comentarios .contador-numero');
+        elementos.forEach(el => {
+            const target = parseFloat(el.getAttribute('data-target'));
+            const decimais = el.getAttribute('data-decimais') ? parseInt(el.getAttribute('data-decimais')) : 0;
+            let duracao = 1500;
+            let startTime = null;
+
+            function passo(currentTime) {
+                if (!startTime) startTime = currentTime;
+                let progresso = Math.min((currentTime - startTime) / duracao, 1);
+                let valorAtual = progresso * target;
+
+                if (decimais > 0) {
+                    el.innerText = valorAtual.toFixed(decimais);
+                } else {
+                    el.innerText = Math.floor(valorAtual).toLocaleString('pt-BR');
+                }
+
+                if (progresso < 1) {
+                    requestAnimationFrame(passo);
+                } else {
+                    el.innerText = decimais > 0 ? target.toFixed(decimais) : target.toLocaleString('pt-BR');
+                }
+            }
+            requestAnimationFrame(passo);
+        });
+    }
+
+    if (secaoDepoimentos) {
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !animado) {
+                    animado = true;
+                    animarNumeros();
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        observer.observe(secaoDepoimentos);
+    }
+});
+</script>
+<!-- Rádio HÜST (toca contínuo entre páginas e fica abafado no carrinho) -->
+  <script src="hust-radio.js"></script>
+</body>
+</html>

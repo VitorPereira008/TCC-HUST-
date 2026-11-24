@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-hust="banco">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="hust-fx.js"></script>
+    <title>NovaTrust | Banco Digital</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --nu-purple: #820AD1;
+            --nu-purple-light: #9B21E8;
+            --bg-dark: #000000;
+            --panel-bg: #1A1A1A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #999999;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* TELA DE LOGIN - FACEID SIMULADO */
+        #login-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: var(--nu-purple);
+            transition: opacity 0.5s ease;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 9999;
+        }
+
+        .login-card { text-align: center; color: white; }
+
+        /* PÁGINA DO BANCO */
+        #dashboard-page { display: none; padding-top: 40px; }
+
+        .glass-panel {
+            background: var(--panel-bg);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* CARTÃO DE CRÉDITO 3D */
+        .card-3d-wrapper { perspective: 1000px; width: 100%; max-width: 380px; margin: auto; }
+        .card-nubank {
+            background: var(--nu-purple);
+            border-radius: 16px;
+            padding: 25px;
+            height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: white;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+            box-shadow: 0 15px 35px rgba(130, 10, 209, 0.3);
+            cursor: pointer;
+        }
+
+        .card-nubank .chip {
+            width: 45px;
+            height: 35px;
+            background: linear-gradient(135deg, #e5b13a, #f7d070);
+            border-radius: 6px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        .card-nubank .mastercard-logo { display: flex; }
+        .circle { width: 30px; height: 30px; border-radius: 50%; opacity: 0.8; }
+        .circle-red { background: #ff0000; z-index: 2; }
+        .circle-yellow { background: #ffcc00; margin-left: -15px; z-index: 1; }
+
+        .balance-text { font-size: 2.2rem; font-weight: 700; margin-top: 5px; letter-spacing: -1px; }
+
+        .action-circle {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--panel-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 10px;
+            transition: 0.3s;
+            cursor: pointer;
+            color: white;
+        }
+        .action-circle:hover { background: var(--nu-purple); transform: translateY(-5px); }
+
+        .nav-futuristic { border-bottom: 1px solid rgba(255,255,255,0.05); background: var(--bg-dark); padding: 15px 0; }
+        .btn-nu { background: var(--nu-purple); border: none; color: white; font-weight: 600; border-radius: 20px; padding: 12px; transition: 0.3s; }
+        .btn-nu:hover { background: var(--nu-purple-light); color: white; }
+
+        /* FOTO DE PERFIL DO USUÁRIO */
+        .user-avatar-container img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--panel-bg);
+            background-color: #333;
+        }
+
+        /* ANIMAÇÕES */
+        @keyframes alert-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(130, 10, 209, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(130, 10, 209, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(130, 10, 209, 0); }
+        }
+
+        .bell-alert { cursor: pointer; position: relative; display: none; }
+        .bell-alert .badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--nu-purple-light);
+            animation: alert-pulse 1.5s infinite;
+        }
+        
+        .fade-in { animation: fadeIn 0.8s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--panel-bg); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+
+        .game-word { font-size: 2rem; letter-spacing: 8px; font-weight: 700; color: var(--nu-purple-light); margin: 20px 0; }
+        .keyboard-btn { background: #2a2a2a; border: none; color: white; width: 40px; height: 40px; margin: 4px; border-radius: 8px; font-weight: bold; transition: 0.2s; }
+        .keyboard-btn:hover:not(:disabled) { background: var(--nu-purple); }
+        .keyboard-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+    <!-- TELA DE LOGIN (FACEID AUTOMÁTICO) -->
+    <div id="login-page">
+        <div class="login-card">
+            <i class="bi bi-person-bounding-box" style="font-size: 4rem; margin-bottom: 20px;"></i>
+            <h3 class="fw-bold mb-2">NovaTrust</h3>
+            <p class="mb-4 opacity-75">Reconhecendo face...</p>
+            <div class="spinner-border text-light" role="status"><span class="visually-hidden">Loading...</span></div>
+        </div>
+    </div>
+
+    <!-- NAVBAR DO BANCO -->
+    <nav class="navbar navbar-dark nav-futuristic d-none" id="main-nav">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span class="navbar-brand fw-bold fs-5 mb-0"><span style="color: var(--nu-purple)">nova</span>trust</span>
+            <div class="d-flex align-items-center gap-4">
+                <div class="bell-alert" id="notification-bell" onclick="abrirCobrancaTCC()">
+                    <i class="bi bi-bell fs-5 text-white"></i>
+                    <div class="badge"></div>
+                </div>
+                <i class="bi bi-box-arrow-right fs-5 text-secondary" style="cursor: pointer;" onclick="window.location.href='index.html'"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- DASHBOARD PRINCIPAL -->
+    <div class="container pb-5" id="dashboard-page">
+        <!-- BOAS VINDAS COM NOME E FOTO DO PERFIL HÜST -->
+        <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
+            <div><h4 class="fw-bold mb-0">Olá, <span id="userNameDisplay" style="color: var(--nu-purple-light);">Cliente</span></h4></div>
+            <div class="user-avatar-container">
+                <img id="userAvatarDisplay" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Sua Foto de Perfil" loading="lazy" decoding="async">
+            </div>
+        </div>
+
+        <div class="row g-4" id="dashboard-content">
+            <div class="col-lg-7">
+                <!-- ÁREA DE SALDO E CARTÃO -->
+                <div class="glass-panel">
+                    <div class="row align-items-center">
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <div class="d-flex align-items-center mb-1">
+                                <p class="text-secondary mb-0 me-3 fw-semibold">Conta</p>
+                                <i class="bi bi-eye fs-5 text-secondary" id="toggleBalanceBtn" style="cursor: pointer;" onclick="toggleBalance()"></i>
+                            </div>
+                            <h1 class="balance-text" id="balance-display">R$ 200,00</h1>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- CARTÃO 3D INTERATIVO -->
+                            <div class="card-3d-wrapper">
+                                <div class="card-nubank" id="card-3d">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="chip"></div>
+                                        <i class="bi bi-wifi fs-4 text-white opacity-75" style="transform: rotate(90deg);"></i>
+                                    </div>
+                                    <div class="mt-4">
+                                        <p class="mb-1 fs-5 fw-bold letter-spacing-2">**** **** **** 8842</p>
+                                        <div class="d-flex justify-content-between align-items-end mt-2">
+                                            <span class="small fw-semibold text-uppercase" id="cardNameDisplay" style="opacity: 0.9;">CLIENTE HUST</span>
+                                            <div class="mastercard-logo">
+                                                <div class="circle circle-red"></div>
+                                                <div class="circle circle-yellow"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BOTÕES DE JOGOS E FUNCIONALIDADES -->
+                <div class="d-flex overflow-auto pb-3 gap-3" style="scrollbar-width: none;">
+                    <div class="text-center" onclick="abrirPix()" style="min-width: 90px;"><div class="action-circle"><i class="bi bi-x-diamond"></i></div><span class="small fw-semibold">Área Pix</span></div>
+                    <div class="text-center" onclick="iniciarRoleta()" style="min-width: 90px;"><div class="action-circle"><i class="bi bi-arrow-repeat"></i></div><span class="small fw-semibold">Roleta</span></div>
+                    <div class="text-center" onclick="iniciarForca()" style="min-width: 90px;"><div class="action-circle"><i class="bi bi-controller"></i></div><span class="small fw-semibold">Forca</span></div>
+                    <div class="text-center" onclick="iniciarQuebraCabeca()" style="min-width: 90px;"><div class="action-circle"><i class="bi bi-puzzle"></i></div><span class="small fw-semibold">Lógica</span></div>
+                    <div class="text-center" onclick="abrirCobrancaTCC()" style="min-width: 90px;"><div class="action-circle"><i class="bi bi-bag-check"></i></div><span class="small fw-semibold">Compras</span></div>
+                </div>
+            </div>
+
+            <!-- EXTRATO DE TRANSAÇÕES -->
+            <div class="col-lg-5">
+                <div class="glass-panel h-100">
+                    <h5 class="fw-bold mb-4">Histórico</h5>
+                    <div id="transaction-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL GLOBAL DO BANCO -->
+    <div class="modal fade" id="operationModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0" style="background: var(--panel-bg); color: white; border-radius: 16px;">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold" id="modalTitle">Operação</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body pt-2" id="modalBody"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ESTADO GLOBAL DO BANCO
+        let balance = 200.00; 
+        let isBalanceVisible = true;
+        let transactions = [{ title: "Bônus de Boas Vindas", date: "Hoje", val: 200.00 }];
+        const modal = new bootstrap.Modal(document.getElementById('operationModal'));
+
+        // INÍCIO AUTOMÁTICO - SINCRONIZANDO DADOS DA LOJA
+        window.onload = () => {
+            const savedUser = JSON.parse(localStorage.getItem('hust_user'));
+            if(savedUser) {
+                if (savedUser.nome) {
+                    document.getElementById('userNameDisplay').innerText = savedUser.nome.split(' ')[0];
+                    document.getElementById('cardNameDisplay').innerText = savedUser.nome.substring(0, 18).toUpperCase();
+                }
+                if (savedUser.foto) {
+                    document.getElementById('userAvatarDisplay').src = savedUser.foto;
+                }
+            }
+
+            setTimeout(() => {
+                document.getElementById('login-page').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('login-page').style.display = 'none';
+                    document.getElementById('main-nav').classList.remove('d-none');
+                    document.getElementById('dashboard-page').style.display = 'block';
+                    updateUI();
+                    verificarNotificacoesLoja();
+                }, 500);
+            }, 2000);
+        };
+
+        // ATUALIZAÇÃO DA INTERFACE (SALDO E EXTRATO)
+        function updateUI() {
+            if(balance < 0) balance = 0; 
+            const display = document.getElementById('balance-display');
+            const btn = document.getElementById('toggleBalanceBtn');
+            if(isBalanceVisible) {
+                display.innerText = balance.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+                btn.classList.remove('bi-eye-slash'); btn.classList.add('bi-eye');
+            } else {
+                display.innerText = 'R$ •••••';
+                btn.classList.remove('bi-eye'); btn.classList.add('bi-eye-slash');
+            }
+            const container = document.getElementById('transaction-container');
+            container.innerHTML = '';
+            transactions.forEach(t => {
+                let isPositive = t.val > 0;
+                container.insertAdjacentHTML('afterbegin', `
+                    <div class="d-flex justify-content-between align-items-center py-3 border-bottom border-secondary border-opacity-10">
+                        <div class="d-flex align-items-center gap-3">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: #2a2a2a; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi ${isPositive ? 'bi-arrow-down-left text-success' : 'bi-arrow-up-right text-white'}"></i>
+                            </div>
+                            <div><p class="mb-0 fw-semibold">${t.title}</p><small class="text-secondary">${t.date}</small></div>
+                        </div>
+                        <span class="fw-bold ${isPositive ? 'text-success' : 'text-white'}">${isPositive ? '+' : ''}${t.val.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</span>
+                    </div>
+                `);
+            });
+        }
+
+        function toggleBalance() { isBalanceVisible = !isBalanceVisible; updateUI(); }
+
+        // EFEITO 3D DO CARTÃO DE CRÉDITO
+        const card3D = document.getElementById('card-3d');
+        card3D.addEventListener('mousemove', (e) => {
+            const rect = card3D.getBoundingClientRect();
+            const rotateX = (((e.clientY - rect.top) - rect.height / 2) / (rect.height / 2)) * -12;
+            const rotateY = (((e.clientX - rect.left) - rect.width / 2) / (rect.width / 2)) * 12;
+            card3D.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        });
+        card3D.addEventListener('mouseleave', () => { card3D.style.transform = `rotateX(0) rotateY(0) scale(1)`; });
+
+        // ÁREA PIX
+        function abrirPix() {
+            document.getElementById('modalTitle').innerText = "Área PIX";
+            document.getElementById('modalBody').innerHTML = `
+                <div class="text-center p-3">
+                    <i class="bi bi-x-diamond-fill mb-3" style="font-size: 3rem; color: var(--nu-purple);"></i>
+                    <h5 class="fw-bold mb-4">Transferir dinheiro</h5>
+                    <div class="text-start mb-3"><label class="small text-secondary mb-1">Chave PIX de destino</label><input type="text" id="pixChave" class="form-control bg-dark text-white border-secondary" placeholder="CPF, Celular, E-mail..." autocomplete="off"></div>
+                    <div class="text-start mb-4"><label class="small text-secondary mb-1">Qual o valor?</label><input type="number" id="pixValor" class="form-control bg-dark text-white border-secondary fs-4" placeholder="R$ 0,00" autocomplete="off"></div>
+                    <button class="btn-nu w-100" onclick="realizarPix()">Transferir</button>
+                </div>`;
+            modal.show();
+        }
+
+        function realizarPix() {
+            let valor = parseFloat(document.getElementById('pixValor').value);
+            let chave = document.getElementById('pixChave').value;
+            if(isNaN(valor) || valor <= 0) { alert("Por favor, digite um valor válido."); return; }
+            if(chave.trim() === "") { alert("Você precisa digitar uma Chave PIX."); return; }
+            if(valor > balance) { alert("Você não possui saldo suficiente para esta transferência."); return; }
+            balance -= valor;
+            transactions.push({ title: "Transferência Enviada", date: "Agora", val: -valor });
+            updateUI();
+            document.getElementById('modalBody').innerHTML = `<div class="text-center py-4"><i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i><h4 class="fw-bold mt-3">PIX Enviado!</h4><p class="text-secondary">O valor foi enviado para a chave informada.</p><button class="btn-nu w-100 mt-3" data-bs-dismiss="modal">Voltar ao Início</button></div>`;
+        }
+
+        // ROLETA DE CASHBACK
+        function iniciarRoleta() {
+            document.getElementById('modalTitle').innerText = "Roleta de Cashback";
+            document.getElementById('modalBody').innerHTML = `
+                <div class="text-center p-3">
+                    <i class="bi bi-arrow-repeat mb-3" style="font-size: 3rem; color: var(--nu-purple);"></i>
+                    <h5 class="fw-bold mb-2">Tente a sorte!</h5>
+                    <p class="text-secondary small mb-4">Custo por giro: <strong>R$ 10,00</strong></p>
+                    <div id="roletaVisor" class="fs-1 fw-bold text-white mb-4 py-4 rounded border border-secondary" style="background: #111;">???</div>
+                    <button class="btn-nu w-100" onclick="girarRoleta()" id="btnGirar">Girar Roleta (R$ 10,00)</button>
+                </div>`;
+            modal.show();
+        }
+
+        function girarRoleta() {
+            if(balance < 10) { alert("Saldo insuficiente para girar. Jogue outros jogos para ganhar dinheiro!"); return; }
+            balance -= 10; updateUI();
+            let visor = document.getElementById('roletaVisor'), btn = document.getElementById('btnGirar');
+            btn.disabled = true;
+            let tempo = 0;
+            let intervalo = setInterval(() => {
+                visor.innerText = "R$ " + Math.floor(Math.random() * 100) + ",00";
+                tempo += 100;
+                if(tempo >= 1500) {
+                    clearInterval(intervalo);
+                    revelarPremioRoleta(visor, btn);
+                }
+            }, 100);
+        }
+
+        function revelarPremioRoleta(visor, btn) {
+            const premios = [0, 0, 0, 0, 5, 10, 20, 50, 100];
+            const sorteio = premios[Math.floor(Math.random() * premios.length)];
+            if(sorteio > 0) {
+                balance += sorteio;
+                transactions.push({ title: "Prêmio: Roleta", date: "Agora", val: sorteio });
+                visor.innerHTML = `<span class="text-success">+ R$ ${sorteio.toFixed(2)}</span>`;
+            } else {
+                transactions.push({ title: "Giro da Roleta", date: "Agora", val: -10.00 });
+                visor.innerHTML = `<span class="text-danger">Quase!</span>`;
+            }
+            updateUI();
+            btn.innerText = "Girar Novamente (R$ 10,00)";
+            btn.disabled = false;
+        }
+
+        // FORCA & LÓGICA
+        const palavrasForca = ["NUBANK", "CREDITO", "INVESTIMENTO", "RENDIMENTO", "PIX", "DIGITAL"];
+        let palavraAtual = "", letrasAdivinhadas = [], errosForca = 0;
+
+        function iniciarForca() {
+            palavraAtual = palavrasForca[Math.floor(Math.random() * palavrasForca.length)];
+            letrasAdivinhadas = []; errosForca = 0;
+            document.getElementById('modalTitle').innerText = "Forca: Termos Financeiros";
+            renderizarInterfaceForca(); modal.show();
+        }
+
+        function renderizarInterfaceForca() {
+            let palavraDisplay = palavraAtual.split('').map(l => letrasAdivinhadas.includes(l) ? l : "_").join(' ');
+            let teclado = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').map(l => `<button class="keyboard-btn" ${letrasAdivinhadas.includes(l) ? "disabled" : ""} onclick="tentarLetra('${l}')">${l}</button>`).join('');
+            document.getElementById('modalBody').innerHTML = `<div class="text-center p-2"><p class="text-secondary mb-1">Chances restantes: ${5 - errosForca}</p><div class="game-word">${palavraDisplay}</div><div class="d-flex flex-wrap justify-content-center mt-4">${teclado}</div></div>`;
+        }
+
+        function tentarLetra(letra) {
+            letrasAdivinhadas.push(letra);
+            if (!palavraAtual.includes(letra)) errosForca++;
+            let venceu = palavraAtual.split('').every(l => letrasAdivinhadas.includes(l));
+            if (venceu) finalizarJogo(true, "Forca");
+            else if (errosForca >= 5) finalizarJogo(false, `Forca (A palavra era ${palavraAtual})`);
+            else renderizarInterfaceForca();
+        }
+
+        const desafiosLogica = [
+            { p: "Qual o dobro da metade de 50?", r: "50" },
+            { p: "Se você tem R$ 10 e ganha 10% de rendimento, com quanto você fica?", r: "11" },
+            { p: "Qual o próximo número: 2, 4, 8, 16, ...", r: "32" }
+        ];
+        let desafioAtual = null;
+
+        function iniciarQuebraCabeca() {
+            desafioAtual = desafiosLogica[Math.floor(Math.random() * desafiosLogica.length)];
+            document.getElementById('modalTitle').innerText = "Desafio de Lógica";
+            document.getElementById('modalBody').innerHTML = `<div class="text-center p-3"><i class="bi bi-lightbulb mb-3" style="font-size: 3rem; color: #f1c40f;"></i><h5 class="fw-bold mb-4">${desafioAtual.p}</h5><input type="text" id="respostaQuebraCabeca" class="form-control bg-dark text-white border-secondary mb-3 text-center fs-5" placeholder="Sua resposta" autocomplete="off"><button class="btn-nu w-100" onclick="tentarQuebraCabeca()">Confirmar Resposta</button></div>`;
+            modal.show();
+        }
+
+        function tentarQuebraCabeca() {
+            let resposta = document.getElementById('respostaQuebraCabeca').value.trim().toLowerCase();
+            if(resposta === desafioAtual.r.toLowerCase()) finalizarJogo(true, "Desafio Lógico");
+            else finalizarJogo(false, "Desafio Lógico");
+        }
+
+        function finalizarJogo(vitoria, nomeJogo) {
+            if (vitoria) {
+                balance += 50;
+                transactions.push({ title: `Ganho: ${nomeJogo}`, date: "Agora", val: 50.00 });
+                document.getElementById('modalBody').innerHTML = `<div class="text-center py-4"><i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i><h3 class="fw-bold mt-3">Você Acertou!</h3><p class="text-secondary">Você ganhou + R$ 50,00.</p><button class="btn-nu mt-3 w-100" data-bs-dismiss="modal">Fechar</button></div>`;
+            } else {
+                balance -= 10;
+                transactions.push({ title: `Erro: ${nomeJogo}`, date: "Agora", val: -10.00 });
+                document.getElementById('modalBody').innerHTML = `<div class="text-center py-4"><i class="bi bi-x-circle-fill text-danger" style="font-size: 4rem;"></i><h3 class="fw-bold mt-3">Resposta Incorreta!</h3><p class="text-secondary">Você perdeu R$ 10,00.</p><button class="btn-nu mt-3 w-100" data-bs-dismiss="modal">Fechar</button></div>`;
+            }
+            updateUI();
+        }
+
+        // ==========================================
+        // INTEGRAÇÃO COM A LOJA HÜST E ESTOQUE (TCC)
+        // ==========================================
+        // Compara pela imagem do produto (os nomes do catálogo e do estoque não são iguais)
+        function chaveImagem(src) {
+            try { src = decodeURIComponent(String(src || '')); } catch (e) { src = String(src || ''); }
+            src = src.split('?')[0].replace(/\\/g, '/');
+            const i = src.toLowerCase().lastIndexOf('/img/');
+            return (i >= 0 ? src.slice(i + 5) : src.replace(/^\.\//, '')).toLowerCase();
+        }
+
+        function darBaixaEstoqueLoja() {
+            const carrinho = JSON.parse(localStorage.getItem('hust_carrinho')) || [];
+            let estoqueDB = JSON.parse(localStorage.getItem('hust_estoque_db')) || [];
+            if (carrinho.length > 0 && estoqueDB.length > 0) {
+                carrinho.forEach(itemComprado => {
+                    const chave = chaveImagem(itemComprado.imagem);
+                    let idx = estoqueDB.findIndex(p => chaveImagem(p.imagem) === chave);
+                    if (idx === -1) idx = estoqueDB.findIndex(p => p.nome.trim().toLowerCase() === String(itemComprado.nome).trim().toLowerCase());
+                    if (idx !== -1 && estoqueDB[idx].qtd > 0) {
+                        estoqueDB[idx].qtd -= 1;
+                    }
+                });
+                localStorage.setItem('hust_estoque_db', JSON.stringify(estoqueDB));
+            }
+        }
+
+        function verificarNotificacoesLoja() {
+            const cobrancaString = localStorage.getItem('novatrust_cobranca');
+            document.getElementById('notification-bell').style.display = cobrancaString ? 'block' : 'none';
+        }
+
+        function abrirCobrancaTCC() {
+            const cobrancaString = localStorage.getItem('novatrust_cobranca');
+            if (!cobrancaString) {
+                alert("Nenhuma pendência ou compra pendente na loja HÜST.");
+                return;
+            }
+            const cobranca = JSON.parse(cobrancaString);
+            document.getElementById('modalTitle').innerText = "Finalizar Pagamento";
+            
+            let parcelasHTML = `<select id="qtdParcelas" class="form-select bg-dark text-white border-secondary mb-4">`;
+            for(let i=1; i<=4; i++) {
+                let valorParcela = (cobranca.valor / i).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+                let texto = i === 1 ? 'À vista (Saldo em Conta)' : 'sem juros';
+                parcelasHTML += `<option value="${i}">${i}x de ${valorParcela} ${texto}</option>`;
+            }
+            parcelasHTML += `</select>`;
+
+            document.getElementById('modalBody').innerHTML = `
+                <div class="text-center mb-4">
+                    <div class="mb-3"><img src="./img/logoHustverme.png" alt="Hust" style="height: 30px;" loading="lazy" decoding="async"></div>
+                    <p class="text-secondary small mb-1">${cobranca.descricao}</p>
+                    <h2 class="text-white fw-bold mt-2">${cobranca.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h2>
+                </div>
+                <div class="mb-2 text-start">
+                    <label class="form-label small text-secondary">Forma de Pagamento</label>
+                    ${parcelasHTML}
+                </div>
+                <button class="btn-nu w-100 mt-3" onclick="finalizarPagamentoLoja(${cobranca.valor}, '${cobranca.loja}')">Pagar Fatura</button>
+            `;
+            modal.show();
+        }
+
+        let pagamentoEmAndamento = false;
+
+        function finalizarPagamentoLoja(valor, loja) {
+            if (pagamentoEmAndamento) return;
+            if (valor > balance) {
+                alert("RECUSADO: Seu saldo de " + balance.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) + " é insuficiente para pagar esta compra.");
+                return;
+            }
+            pagamentoEmAndamento = true;
+            modal.hide();
+
+            const concluir = () => {
+                balance -= valor;
+                transactions.push({ title: "Compra Loja HÜST", date: "Agora", val: -valor });
+
+                // Dá baixa automática nas unidades compradas no estoque da loja
+                darBaixaEstoqueLoja();
+
+                localStorage.removeItem('novatrust_cobranca');
+                localStorage.removeItem('hust_carrinho');
+                document.getElementById('notification-bell').style.display = 'none';
+
+                document.getElementById('dashboard-content').innerHTML = `
+                    <div class="col-12 text-center fade-in" style="margin-top: 15vh;">
+                        <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
+                        <h2 class="fw-bold text-white mt-4 mb-2">Pagamento Aprovado!</h2>
+                        <p class="text-secondary fs-5 mt-2">
+                            Sua compra na Hüst foi concluída e o estoque foi atualizado.<br>
+                            <span class="spinner-border spinner-border-sm mt-3 text-light"></span> Voltando para a loja...
+                        </p>
+                    </div>
+                `;
+                setTimeout(() => { window.location.href = 'index.html'; }, 3000);
+            };
+
+            // Animação de 15 segundos (duração em hust-fx.js > DURACAO_SEQUENCIA_MS)
+            const itens = (JSON.parse(localStorage.getItem('hust_carrinho')) || []).length;
+            if (window.HustFX) {
+                HustFX.sequencia({ tipo: 'pagamento', total: valor, saldo: balance, loja: loja, itens: itens }).then(concluir);
+            } else {
+                concluir();
+            }
+        }
+    </script>
+</body>
+</html>
