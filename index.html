@@ -10,8 +10,70 @@
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"></noscript>
+<style>
+  /* TELA DE CARREGAMENTO AUTOMÁTICA HÜST */
+  #hust-splash {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    background: radial-gradient(circle at center, #180608 0%, #050507 65%, #000000 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 24px;
+    text-align: center;
+    transition: opacity 0.65s ease, visibility 0.65s ease;
+  }
+  #hust-splash.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .splash-logo {
+    width: 145px;
+    max-width: 45vw;
+    filter: drop-shadow(0 0 26px rgba(255, 46, 59, 0.55));
+    animation: splashPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes splashPulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 22px rgba(255, 46, 59, 0.45)); }
+    50% { transform: scale(1.05); filter: drop-shadow(0 0 36px rgba(255, 46, 59, 0.85)); }
+  }
+  .splash-tag {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #ff2e3b;
+  }
+  .splash-bar-wrap {
+    width: min(260px, 72vw);
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .splash-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff2e3b, #ff6b6b);
+    border-radius: 999px;
+    transition: width 0.22s ease;
+  }
+</style>
 </head>
 <body>
+
+<!-- TELA DE CARREGAMENTO AUTOMÁTICA -->
+<div id="hust-splash" aria-label="Carregando HÜST">
+  <img src="./img/logoHustverme.png" alt="Logo HÜST" class="splash-logo">
+  <div class="splash-tag">HÜST • DROP 2026</div>
+  <div class="splash-bar-wrap">
+    <div class="splash-bar" id="hustSplashBar"></div>
+  </div>
+</div>
 
 <header>
 <div class="navbar">
@@ -114,7 +176,7 @@
         
         <div class="grid-cards-nike">
             <a href="catalogo.html" class="card-nike">
-                <img src="./img/icon2.png" alt="Catálogo Hüst" loading="lazy" decoding="async">
+                <img src="./img/1.png" alt="Catálogo Hüst" loading="lazy" decoding="async">
                 <div class="card-nike-overlay">
                     <span class="card-nike-subtitulo">Coleção Completa</span>
                     <h3>Catálogo</h3>
@@ -123,7 +185,7 @@
             </a>
 
             <a href="novidades.html" class="card-nike">
-                <img src="./img/icon4.png" alt="Novidades Hüst" loading="lazy" decoding="async">
+                <img src="./img/2.png" alt="Novidades Hüst" loading="lazy" decoding="async">
                 <div class="card-nike-overlay">
                     <span class="card-nike-subtitulo">Acabaram de Chegar</span>
                     <h3>Novidades</h3>
@@ -132,7 +194,7 @@
             </a>
 
             <a href="Joganoestilo.html" class="card-nike">
-                <img src="./img/icon1.png" alt="Se Joga no Estilo" loading="lazy" decoding="async">
+                <img src="./img/3.png" alt="Se Joga no Estilo" loading="lazy" decoding="async">
                 <div class="card-nike-overlay">
                     <span class="card-nike-subtitulo">Atitude Urbana</span>
                     <h3>Se Joga no Estilo</h3>
@@ -155,38 +217,30 @@
 
         <div class="carrossel-produtos">
             <div class="lista">
-                <div class="card">
+                 <div class="card"><div class="favorito">♡</div><img src="./img/parcerias/ben2.png" alt="" loading="lazy" decoding="async"><button class="compra">COMPRA RÁPIDA</button><div class="nome">Tênis HÜST x XLR8 Speed Green</div><div class="estrelas">★★★★★</div><div class="antigo">R$ 379,90</div><div class="pix">R$ 303,90 via PIX</div><div class="parcelas">ou 4x de R$ 75,97 sem juros</div></div>
+
+                            <div class="card">
                     <div class="favorito">♡</div>
-                    <img src="./img/Hust tenis/h1.png" alt="HÜST Legacy Preto" loading="lazy" decoding="async">
-                    <button type="button" class="compra">COMPRA RÁPIDA</button>
-                    <div class="nome">HÜST Legacy Preto</div>
+                    <img src="./img/sejgne/TenisHust/39.png" alt="Produto" loading="lazy" decoding="async">
+                    <button class="compra">COMPRA RÁPIDA</button>
+                    <div class="nome">Tênis HÜST Street Core</div>
                     <div class="estrelas">★★★★★</div>
-                    <div class="antigo">R$ 449,90</div>
-                    <div class="pix">R$ 359,90 via PIX</div>
-                    <div class="parcelas">ou 4x de R$ 89,97 sem juros</div>
+                    <div class="antigo">R$ 379,90</div>
+                    <div class="pix">R$ 303,90 via PIX</div>
+                    <div class="parcelas">ou 4x de R$ 75,97 sem juros</div>
                 </div>
 
-                <div class="card">
+                            <div class="card">
                     <div class="favorito">♡</div>
-                    <img src="./img/Hust tenis/h10.png" alt="HÜST High Top Red" loading="lazy" decoding="async">
-                    <button type="button" class="compra">COMPRA RÁPIDA</button>
-                    <div class="nome">HÜST High Top Red</div>
+                    <img src="./img/sejgne/Fire/fire (12).png" alt="Produto" loading="lazy" decoding="async">
+                    <button class="compra">COMPRA RÁPIDA</button>
+                    <div class="nome">Calça Oversized Fire Smoke White</div>
                     <div class="estrelas">★★★★★</div>
-                    <div class="antigo">R$ 499,90</div>
-                    <div class="pix">R$ 399,90 via PIX</div>
-                    <div class="parcelas">ou 4x de R$ 99,97 sem juros</div>
+                    <div class="antigo">R$ 149,90</div>
+                    <div class="pix">R$ 119,90 via PIX</div>
+                    <div class="parcelas">ou 4x de R$ 29,97 sem juros</div>
                 </div>
 
-                <div class="card">
-                    <div class="favorito">♡</div>
-                    <img src="./img/Hust tenis/h19.png" alt="HÜST Street Runner" loading="lazy" decoding="async">
-                    <button type="button" class="compra">COMPRA RÁPIDA</button>
-                    <div class="nome">HÜST Street Runner</div>
-                    <div class="estrelas">★★★★★</div>
-                    <div class="antigo">R$ 389,90</div>
-                    <div class="pix">R$ 319,90 via PIX</div>
-                    <div class="parcelas">ou 4x de R$ 79,97 sem juros</div>
-                </div>
 
                 <div class="card">
                     <div class="favorito">♡</div>
@@ -199,16 +253,7 @@
                     <div class="parcelas">ou 4x de R$ 87,47 sem juros</div>
                 </div>
 
-                <div class="card">
-                    <div class="favorito">♡</div>
-                    <img src="./img/Hust tenis/h2.png" alt="Tênis HÜST Street Black" loading="lazy" decoding="async">
-                    <button type="button" class="compra">COMPRA RÁPIDA</button>
-                    <div class="nome">Tênis HÜST Street Black</div>
-                    <div class="estrelas">★★★★★</div>
-                    <div class="antigo">R$ 349,90</div>
-                    <div class="pix">R$ 279,90 via PIX</div>
-                    <div class="parcelas">ou 4x de R$ 69,97 sem juros</div>
-                </div>
+                 <div class="card"><div class="favorito">♡</div><img src="./img/parcerias/Naruto1.png" alt="" loading="lazy" decoding="async"><button class="compra">COMPRA RÁPIDA</button><div class="nome">Tênis HÜST x Konoha Leaf</div><div class="estrelas">★★★★★</div><div class="antigo">R$ 139,90</div><div class="pix">R$ 111,90 via PIX</div><div class="parcelas">ou 4x de R$ 27,97 sem juros</div></div>
 
                 <div class="card">
                     <div class="favorito">♡</div>
@@ -409,6 +454,32 @@
 
 <script src="hust-sync.js"></script>
 <script>
+// TELA DE CARREGAMENTO AUTOMÁTICA (FECHA SOZINHA AO COMPLETAR 100%)
+(function () {
+    const splash = document.getElementById('hust-splash');
+    const bar = document.getElementById('hustSplashBar');
+    if (!splash) return;
+
+    if (sessionStorage.getItem('hust_splash_done') === '1') {
+        splash.remove();
+        return;
+    }
+
+    let pct = 0;
+    const timer = setInterval(() => {
+        pct = Math.min(100, pct + 20);
+        if (bar) bar.style.width = pct + '%';
+        if (pct >= 100) {
+            clearInterval(timer);
+            sessionStorage.setItem('hust_splash_done', '1');
+            setTimeout(() => {
+                splash.classList.add('is-hidden');
+                setTimeout(() => splash.remove(), 650);
+            }, 250);
+        }
+    }, 180);
+})();
+
 const AVATARES_PARTICIPANTES_ADMIN = [
     { nome: "Pedro Marchetti", img: "./img/icon1.png" },
     { nome: "Lucas", img: "./img/icon2.png" },
@@ -600,8 +671,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Carrosséis de produtos: controlados por hust-fx.js (passo certo, setas desativadas nas pontas e swipe no celular)
-
     const imagensProdutos = document.querySelectorAll('.card img');
     imagensProdutos.forEach(img => {
         img.style.cursor = "pointer";
@@ -673,6 +742,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 <!-- Rádio HÜST (toca contínuo entre páginas e fica abafado no carrinho) -->
-  <script src="hust-radio.js"></script>
+<script src="hust-radio.js"></script>
 </body>
 </html>
