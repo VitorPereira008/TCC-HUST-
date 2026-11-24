@@ -1,4 +1,4 @@
-/*! HÜST RADIO — Player de Vinil Contínuo (só para quando você clica em Pausar) */
+/*! HÜST RADIO — Autoplay Imediato + Player de Vinil Contínuo */
 (function () {
   'use strict';
 
@@ -39,12 +39,19 @@
     { titulo: "Daft Punk Remix", artista: "Daft Punk", arquivo: "daft punk tyshi.mp3" }
   ];
 
-  // Se já estiver dentro do iframe, apenas avisa o player pai qual página abriu (para efeito abafado no carrinho)
+  // Se estiver dentro do iframe, avisa o player pai qual página abriu e repassa o 1º toque caso o autoplay tenha sido bloqueado
   if (window.self !== window.top) {
     try {
       if (window.top.__hustNotifyPage) {
         window.top.__hustNotifyPage(window.location.href, document.title);
       }
+      const unlockTop = () => {
+        try {
+          if (window.top.__hustUnlockAudio) window.top.__hustUnlockAudio();
+        } catch (e) {}
+      };
+      window.addEventListener('pointerdown', unlockTop, { once: true, passive: true });
+      window.addEventListener('keydown', unlockTop, { once: true });
     } catch (e) {}
     return;
   }
@@ -90,7 +97,8 @@
   }
 
   const audio = document.createElement('audio');
-  audio.preload = 'metadata';
+  audio.preload = 'auto';
+  audio.autoplay = true;
   audio.volume = state.volume;
 
   let audioCtx = null;
@@ -143,6 +151,7 @@
     const iframe = document.createElement('iframe');
     iframe.id = 'hust-app-frame';
     iframe.src = initialUrl;
+    iframe.allow = 'autoplay';
     iframe.style.cssText = 'position:fixed;inset:0;width:100vw;height:100vh;border:0;display:block;background:#050608;';
     document.body.appendChild(iframe);
 
@@ -282,7 +291,6 @@
     `;
     document.body.appendChild(dock);
 
-    // Atualiza título, URL e modo abafado sempre que você muda de página dentro do site, SEM parar a música
     window.__hustNotifyPage = function (newUrl, newTitle) {
       if (newTitle) document.title = newTitle;
       try {
@@ -322,12 +330,28 @@
     const btnNext = document.getElementById('hrNext');
     const vinylWrap = dock.querySelector('.hr-vinyl-wrap');
 
-    let wantsPlay = false;
+    let wantsPlay = true;
+    let userPaused = false;
 
     function updateUI(isPlaying) {
       dock.classList.toggle('is-playing', isPlaying);
       btnPlay.textContent = isPlaying ? '⏸' : '▶';
     }
+
+    function tentarTocarSozinho() {
+      if (userPaused) return;
+      wantsPlay = true;
+      audio.play().then(() => {
+        initWebAudio();
+        updateUI(true);
+      }).catch(() => {
+        updateUI(false);
+      });
+    }
+
+    window.__hustUnlockAudio = tentarTocarSozinho;
+    window.addEventListener('pointerdown', tentarTocarSozinho, { once: true, passive: true });
+    window.addEventListener('keydown', tentarTocarSozinho, { once: true });
 
     function loadTrack(idx, autoPlay) {
       state.index = ((idx % FAIXAS.length) + FAIXAS.length) % FAIXAS.length;
@@ -338,8 +362,7 @@
       saveState();
 
       if (autoPlay) {
-        initWebAudio();
-        audio.play().then(() => updateUI(true)).catch(() => updateUI(false));
+        tentarTocarSozinho();
       }
     }
 
@@ -369,12 +392,11 @@
     btnPlay.addEventListener('click', () => {
       initWebAudio();
       if (audio.paused) {
+        userPaused = false;
         wantsPlay = true;
-        audio.play().then(() => updateUI(true)).catch(() => {
-          wantsPlay = false;
-          updateUI(false);
-        });
+        audio.play().then(() => updateUI(true)).catch(() => updateUI(false));
       } else {
+        userPaused = true;
         wantsPlay = false;
         audio.pause();
         updateUI(false);
@@ -382,6 +404,7 @@
     });
 
     btnNext.addEventListener('click', () => {
+      userPaused = false;
       wantsPlay = true;
       nextRandomTrack(true);
     });
@@ -390,6 +413,7 @@
       if (audio.currentTime > 3) {
         audio.currentTime = 0;
       } else {
+        userPaused = false;
         wantsPlay = true;
         loadTrack(state.index - 1, true);
       }
@@ -408,7 +432,9 @@
       nextRandomTrack(true);
     });
 
-    loadTrack(state.index, false);
+    // Sorteia uma faixa e já dispara o autoplay imediatamente ao abrir o app
+    const randomStart = Math.floor(Math.random() * FAIXAS.length);
+    loadTrack(randomStart, true);
   }
 
   if (document.readyState === 'loading') {
