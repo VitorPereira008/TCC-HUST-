@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="hust-fx.js"></script>
+<title>Hüst Tênis - Acesso & Cadastro</title>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"></noscript>
+<link rel="icon" href="HUst%20Logo.jpg" type="image/jpeg">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #050505;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-image: radial-gradient(circle at top right, rgba(255, 51, 51, 0.15), transparent 45%);
+}
+
+.cadastro-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    background: #0d0d0d;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+}
+
+.lado-esquerdo {
+    flex: 1;
+    background: linear-gradient(145deg, #120404 0%, #080808 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+    border-right: 1px solid rgba(255, 51, 51, 0.15);
+}
+
+.lado-esquerdo img {
+    width: 190px;
+    margin-bottom: 25px;
+    filter: drop-shadow(0 10px 25px rgba(255, 51, 51, 0.3));
+}
+
+.lado-esquerdo h2 {
+    font-size: 1.6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
+
+.lado-esquerdo p {
+    color: #999;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.lado-direito {
+    flex: 1.2;
+    padding: 45px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.tabs-acesso {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    background: #141414;
+    padding: 5px;
+    border-radius: 12px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    color: #888;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tab-btn.ativo {
+    background: #ff3333;
+    color: #fff;
+}
+
+.foto-cadastro-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    background: #141414;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px dashed #2e2e2e;
+}
+
+.foto-cadastro-preview {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ff3333;
+    background: #222;
+    flex-shrink: 0;
+}
+
+.btn-escolher-foto-cad {
+    background: #222;
+    color: #fff;
+    border: 1px solid #3a3a3a;
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.btn-escolher-foto-cad:hover {
+    background: #ff3333;
+    border-color: #ff3333;
+}
+
+.form-grupo {
+    margin-bottom: 18px;
+}
+
+.form-grupo label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #bbb;
+    margin-bottom: 6px;
+}
+
+.form-grupo input {
+    width: 100%;
+    padding: 14px 16px;
+    background: #151515;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.95rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.form-grupo input:focus {
+    border-color: #ff3333;
+    background: #1a1a1a;
+}
+
+.btn-confirmar {
+    width: 100%;
+    padding: 15px;
+    background: #ff3333;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.btn-confirmar:hover {
+    background: #d91e1e;
+    transform: translateY(-2px);
+}
+
+.voltar-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #777;
+    text-decoration: none;
+    font-size: 0.85rem;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.voltar-link:hover {
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .cadastro-wrapper { flex-direction: column; }
+    .lado-esquerdo { padding: 30px 20px; border-right: none; border-bottom: 1px solid rgba(255,51,51,0.15); }
+    .lado-esquerdo img { width: 130px; margin-bottom: 15px; }
+    .lado-direito { padding: 30px 25px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cadastro-wrapper">
+    <div class="lado-esquerdo">
+        <img src="./img/logoHustverme.png" alt="Logo HÜST" loading="lazy" decoding="async">
+        <h2>Bem-vindo à HÜST</h2>
+        <p>Acesse sua conta para personalizar seu perfil, acompanhar pedidos e explorar os drops exclusivos.</p>
+    </div>
+
+    <div class="lado-direito">
+        <div class="tabs-acesso">
+            <button type="button" class="tab-btn ativo" id="tabCadastro" onclick="alternarAba('cadastro')">Criar Conta</button>
+            <button type="button" class="tab-btn" id="tabLogin" onclick="alternarAba('login')">Já Tenho Conta</button>
+        </div>
+
+        <form id="formAcesso" onsubmit="processarAcesso(event)">
+            <div class="foto-cadastro-box" id="grupoFotoCad">
+                <img id="previewFotoCad" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Prévia da foto" class="foto-cadastro-preview">
+                <div>
+                    <button type="button" class="btn-escolher-foto-cad" onclick="document.getElementById('inputFotoCad').click()">
+                        <i class="fa-solid fa-images"></i> Foto da Galeria (Opcional)
+                    </button>
+                    <p style="font-size: 0.75rem; color: #777; margin-top: 4px;">Escolha uma foto do celular ou computador</p>
+                </div>
+                <input type="file" id="inputFotoCad" accept="image/*" style="display: none;" onchange="carregarFotoCadastro(event)">
+            </div>
+
+            <div class="form-grupo" id="grupoNome">
+                <label>Seu Nome</label>
+                <input type="text" id="inputNome" placeholder="Ex: João Silva" required>
+            </div>
+
+            <div class="form-grupo">
+                <label>E-mail</label>
+                <input type="email" id="inputEmail" placeholder="seuemail@exemplo.com" required>
+            </div>
+
+            <div class="form-grupo">
+                <label>Senha</label>
+                <input type="password" id="inputSenha" placeholder="Digite sua senha" required>
+            </div>
+
+            <button type="submit" class="btn-confirmar" id="btnSubmit">Cadastrar e Entrar</button>
+        </form>
+
+        <a href="index.html" class="voltar-link"><i class="fas fa-arrow-left"></i> Voltar para a loja sem conta</a>
+    </div>
+</div>
+
+<script>
+let modoAtual = 'cadastro';
+let fotoCadastroBase64 = "";
+
+const ADMIN_EMAIL = "hustlojaestoque@gmail.com";
+const ADMIN_SENHA = "Hust20262511";
+
+function carregarFotoCadastro(event) {
+    const arquivo = event.target.files[0];
+    if (!arquivo || !arquivo.type.startsWith('image/')) return;
+
+    const leitor = new FileReader();
+    leitor.onload = function (e) {
+        const imgTemp = new Image();
+        imgTemp.onload = function () {
+            const canvas = document.createElement('canvas');
+            const tamanhoMax = 300;
+            let largura = imgTemp.width;
+            let altura = imgTemp.height;
+
+            if (largura > altura) {
+                if (largura > tamanhoMax) {
+                    altura = Math.round((altura * tamanhoMax) / largura);
+                    largura = tamanhoMax;
+                }
+            } else {
+                if (altura > tamanhoMax) {
+                    largura = Math.round((largura * tamanhoMax) / altura);
+                    altura = tamanhoMax;
+                }
+            }
+
+            canvas.width = largura;
+            canvas.height = altura;
+            canvas.getContext('2d').drawImage(imgTemp, 0, 0, largura, altura);
+            fotoCadastroBase64 = canvas.toDataURL('image/jpeg', 0.82);
+            document.getElementById('previewFotoCad').src = fotoCadastroBase64;
+        };
+        imgTemp.src = e.target.result;
+    };
+    leitor.readAsDataURL(arquivo);
+}
+
+function alternarAba(modo) {
+    modoAtual = modo;
+    const grupoNome = document.getElementById('grupoNome');
+    const grupoFotoCad = document.getElementById('grupoFotoCad');
+    const inputNome = document.getElementById('inputNome');
+    const btnSubmit = document.getElementById('btnSubmit');
+
+    if (modo === 'login') {
+        document.getElementById('tabLogin').classList.add('ativo');
+        document.getElementById('tabCadastro').classList.remove('ativo');
+        grupoNome.style.display = 'none';
+        if (grupoFotoCad) grupoFotoCad.style.display = 'none';
+        inputNome.removeAttribute('required');
+        btnSubmit.innerText = 'Entrar na Conta';
+    } else {
+        document.getElementById('tabCadastro').classList.add('ativo');
+        document.getElementById('tabLogin').classList.remove('ativo');
+        grupoNome.style.display = 'block';
+        if (grupoFotoCad) grupoFotoCad.style.display = 'flex';
+        inputNome.setAttribute('required', 'true');
+        btnSubmit.innerText = 'Cadastrar e Entrar';
+    }
+}
+
+function lerBancoUsuarios() {
+    try { return JSON.parse(localStorage.getItem('hust_usuarios_db')) || []; } catch (e) { return []; }
+}
+
+function abrirSessao(usuario) {
+    const { senha, ...semSenha } = usuario;
+    localStorage.setItem('hust_user', JSON.stringify(semSenha));
+}
+
+function processarAcesso(e) {
+    e.preventDefault();
+    const nomeDigitado = document.getElementById('inputNome').value.trim();
+    const emailDigitado = document.getElementById('inputEmail').value.trim();
+    const senhaDigitada = document.getElementById('inputSenha').value.trim();
+
+    if (emailDigitado.toLowerCase() === ADMIN_EMAIL && senhaDigitada === ADMIN_SENHA) {
+        abrirSessao({
+            nome: nomeDigitado || "Admin",
+            email: emailDigitado,
+            isAdmin: true,
+            foto: fotoCadastroBase64 || "./img/logoHustverme.png"
+        });
+        alert("🔓 MODO ADMINISTRADOR ATIVADO!\nO botão ESTOQUE agora aparece na navbar em todas as páginas.");
+        window.location.href = "index.html";
+        return;
+    }
+
+    if (emailDigitado.toLowerCase() === ADMIN_EMAIL && senhaDigitada !== ADMIN_SENHA) {
+        alert("❌ Senha incorreta para a conta de Administrador do Estoque!");
+        return;
+    }
+
+    let bancoUsuarios = lerBancoUsuarios();
+    const existente = bancoUsuarios.find(u => (u.email || '').toLowerCase() === emailDigitado.toLowerCase());
+
+    if (modoAtual === 'cadastro') {
+        if (existente) {
+            alert("Este e-mail já tem cadastro. Use a aba \"Já Tenho Conta\" para entrar.");
+            alternarAba('login');
+            return;
+        }
+        const novoCliente = {
+            nome: nomeDigitado || "Cliente HÜST",
+            email: emailDigitado,
+            senha: senhaDigitada,
+            isAdmin: false,
+            foto: fotoCadastroBase64 || ""
+        };
+        bancoUsuarios.push(novoCliente);
+        localStorage.setItem('hust_usuarios_db', JSON.stringify(bancoUsuarios));
+        abrirSessao(novoCliente);
+
+        alert("Conta criada com sucesso! Bem-vindo à HÜST, " + novoCliente.nome.split(' ')[0] + "!");
+        window.location.href = "index.html";
+    } else {
+        if (!existente) {
+            alert("Não encontramos esse e-mail. Crie sua conta na aba \"Criar Conta\".");
+            alternarAba('cadastro');
+            return;
+        }
+        if (existente.senha !== senhaDigitada) {
+            alert("Senha incorreta. Tente novamente.");
+            return;
+        }
+        abrirSessao(existente);
+        alert("Bem-vindo de volta, " + existente.nome.split(' ')[0] + "!");
+        window.location.href = "index.html";
+    }
+}
+</script>
+</body>
+</html>
